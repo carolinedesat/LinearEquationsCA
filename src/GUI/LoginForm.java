@@ -155,19 +155,24 @@ public class LoginForm extends javax.swing.JFrame {
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 
                 //retrieves and stores the query
-		String query = "SELECT * FROM user WHERE username=? and password=? and is_admin=?";
+		String query = "SELECT * FROM user WHERE username=? and password=?";
 
                 //gets a connection to the database
 		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "*Dun04061620");
+                
+                
 
                 //gets a statement from the connection
 		PreparedStatement pst = conn.prepareStatement(query);
+                
+                pst.setString(1, usernameField.getText());
+                pst.setString(2, passwordField.getText());
 
 		//executes the query
 		ResultSet rs = pst.executeQuery();
                 
                 if (rs.next()) {
-                    if (rs.getString("userAdmin").equals(true)) {
+                    if (rs.getString("is_admin").equals("y")) {
 
                         AdminMenu menu = new AdminMenu();
                         menu.setVisible(true);
