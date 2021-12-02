@@ -172,7 +172,7 @@ public class LoginForm extends javax.swing.JFrame {
 		ResultSet rs = pst.executeQuery();
                 
                 if (rs.next()) {
-                    if (rs.getString("is_admin").equals(1)) {
+                    if (rs.getString("is_admin").equals("y")) {
 
                         AdminMenu menu = new AdminMenu();
                         menu.setVisible(true);
