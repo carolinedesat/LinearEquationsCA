@@ -33,10 +33,10 @@ public class RegularUserMenu extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        editInfoBtn = new javax.swing.JButton();
+        calculator2x2 = new javax.swing.JButton();
         logoutBtn = new javax.swing.JButton();
+        calculator3x3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -48,16 +48,31 @@ public class RegularUserMenu extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Regular User Menu");
 
-        jButton1.setText("Edit Info");
+        editInfoBtn.setText("Edit Info");
+        editInfoBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editInfoBtnActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Calculator");
-
-        jButton3.setText("Operations Record");
+        calculator2x2.setText("Calculator 2x2");
+        calculator2x2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                calculator2x2ActionPerformed(evt);
+            }
+        });
 
         logoutBtn.setText("Logout");
         logoutBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 logoutBtnActionPerformed(evt);
+            }
+        });
+
+        calculator3x3.setText("Calculator 3x3");
+        calculator3x3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                calculator3x3ActionPerformed(evt);
             }
         });
 
@@ -68,11 +83,11 @@ public class RegularUserMenu extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(calculator3x3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(editInfoBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(calculator2x2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(logoutBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -84,11 +99,11 @@ public class RegularUserMenu extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(editInfoBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(calculator2x2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
+                .addComponent(calculator3x3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(logoutBtn)
                 .addContainerGap(47, Short.MAX_VALUE))
@@ -102,6 +117,24 @@ public class RegularUserMenu extends javax.swing.JFrame {
         login.setVisible(true);
         dispose();
     }//GEN-LAST:event_logoutBtnActionPerformed
+
+    private void editInfoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editInfoBtnActionPerformed
+        EditInfoRegularUser menu = new EditInfoRegularUser();
+        menu.setVisible(true);
+        dispose(); 
+    }//GEN-LAST:event_editInfoBtnActionPerformed
+
+    private void calculator2x2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculator2x2ActionPerformed
+        Calculator2x2 calc = new Calculator2x2();
+        calc.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_calculator2x2ActionPerformed
+
+    private void calculator3x3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculator3x3ActionPerformed
+        Calculator3x3 calc = new Calculator3x3();
+        calc.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_calculator3x3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -139,9 +172,9 @@ public class RegularUserMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton calculator2x2;
+    private javax.swing.JButton calculator3x3;
+    private javax.swing.JButton editInfoBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JButton logoutBtn;

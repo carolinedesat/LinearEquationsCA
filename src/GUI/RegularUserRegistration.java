@@ -5,6 +5,12 @@
  */
 package GUI;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author carol
@@ -31,15 +37,15 @@ public class RegularUserRegistration extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        usernameField = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        passwordField = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
         firstNameField = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        usernameField = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        secondNameField = new javax.swing.JTextField();
         registerBtn = new javax.swing.JButton();
         cancelBtn = new javax.swing.JButton();
+        lastNameField = new javax.swing.JTextField();
+        passwordField = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -52,16 +58,16 @@ public class RegularUserRegistration extends javax.swing.JFrame {
         jLabel2.setText("Regular User Registration");
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel3.setText("Username:");
+        jLabel3.setText("First name:");
 
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel4.setText("Password:");
+        jLabel4.setText("Last name:");
 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel5.setText("First Name:");
+        jLabel5.setText("Username:");
 
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel6.setText("Second Name:");
+        jLabel6.setText("Password:");
 
         registerBtn.setText("Register");
         registerBtn.setPreferredSize(new java.awt.Dimension(100, 29));
@@ -96,15 +102,15 @@ public class RegularUserRegistration extends javax.swing.JFrame {
                             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(firstNameField)
+                            .addComponent(usernameField)
+                            .addComponent(lastNameField)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(registerBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(usernameField)
-                            .addComponent(passwordField)
-                            .addComponent(firstNameField)
-                            .addComponent(secondNameField))))
+                            .addComponent(passwordField))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -117,19 +123,19 @@ public class RegularUserRegistration extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
                     .addComponent(firstNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(lastNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
-                    .addComponent(secondNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(registerBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -159,10 +165,38 @@ public class RegularUserRegistration extends javax.swing.JFrame {
 
     private void registerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerBtnActionPerformed
         
+        String first_name = firstNameField.getText();
+        String last_name = lastNameField.getText();        
         String username = usernameField.getText();
         String password = passwordField.getText();
-        String firstName = firstNameField.getText();
-        String secondName = secondNameField.getText();
+        
+        try {
+                //loads the database driver
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                
+                //gets a connection to the database
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "*Dun04061620");
+                
+                //inserts data into the user table
+                String insert = "INSERT INTO user (first_name, last_name, username, password) VALUES (?, ?, ?, ?)";
+                
+                //gets a statement from the connection
+                PreparedStatement pstInsert = conn.prepareStatement(insert);
+                
+                pstInsert.setString(1, first_name);
+                pstInsert.setString(2, last_name);
+                pstInsert.setString(3, username);
+                pstInsert.setString(4, password);
+                pstInsert.execute();
+                JOptionPane.showMessageDialog(null, "The registration was successful!");
+                
+                RegularUserMenu menu = new RegularUserMenu();
+                menu.setVisible(true);
+                setVisible(false);  
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
         
     }//GEN-LAST:event_registerBtnActionPerformed
 
@@ -211,9 +245,9 @@ public class RegularUserRegistration extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField passwordField;
+    private javax.swing.JTextField lastNameField;
+    private javax.swing.JPasswordField passwordField;
     private javax.swing.JButton registerBtn;
-    private javax.swing.JTextField secondNameField;
     private javax.swing.JTextField usernameField;
     // End of variables declaration//GEN-END:variables
 }

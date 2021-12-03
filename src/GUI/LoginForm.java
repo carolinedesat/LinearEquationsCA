@@ -160,8 +160,6 @@ public class LoginForm extends javax.swing.JFrame {
                 //gets a connection to the database
 		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "*Dun04061620");
                 
-                
-
                 //gets a statement from the connection
 		PreparedStatement pst = conn.prepareStatement(query);
                 
@@ -172,22 +170,30 @@ public class LoginForm extends javax.swing.JFrame {
 		ResultSet rs = pst.executeQuery();
                 
                 if (rs.next()) {
-                    if (rs.getString("is_admin").equals("y")) {
-
-                        AdminMenu menu = new AdminMenu();
-                        menu.setVisible(true);
-                        dispose();
-
-                    } else {
-
+                    if (null == rs.getString("is_admin")) {
+                        
                         RegularUserMenu menu = new RegularUserMenu();
                         menu.setVisible(true);
-                        setVisible(false);
-
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Login Error");
-                }                
+                        dispose();
+                        
+                    } else switch (rs.getString("is_admin")) {
+                        
+                        case "y":
+                            { 
+                                AdminMenu menu = new AdminMenu();
+                                menu.setVisible(true);
+                                dispose();
+                                break;
+                                
+                            }
+                            
+                        default:
+                            JOptionPane.showMessageDialog(null, "Login Error");
+                            break;
+                            
+                    } 
+                    
+                }                                  
             
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
@@ -196,11 +202,9 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_loginBtnActionPerformed
 
     private void registerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerBtnActionPerformed
-        
         RegularUserRegistration registration = new RegularUserRegistration();
         registration.setVisible(true);
-        dispose();
-        
+        dispose();        
     }//GEN-LAST:event_registerBtnActionPerformed
 
     /**
