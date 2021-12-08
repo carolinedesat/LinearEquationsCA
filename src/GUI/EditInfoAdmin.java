@@ -189,6 +189,7 @@ public class EditInfoAdmin extends javax.swing.JFrame {
                 pstUpdate.setString(3, username);
                 pstUpdate.setString(4, password);
                 pstUpdate.execute();
+                
                 JOptionPane.showMessageDialog(null, "The update was successful!");
                 
                 AdminMenu menu = new AdminMenu();

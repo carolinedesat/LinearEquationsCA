@@ -183,14 +183,12 @@ public class LoginForm extends javax.swing.JFrame {
                                 AdminMenu menu = new AdminMenu();
                                 menu.setVisible(true);
                                 dispose();
-                                break;
-                                
+                                break;   
                             }
                             
                         default:
                             JOptionPane.showMessageDialog(null, "Login Error");
-                            break;
-                            
+                            break;          
                     } 
                     
                 }                                  

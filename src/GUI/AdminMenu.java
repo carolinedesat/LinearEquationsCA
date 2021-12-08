@@ -36,7 +36,7 @@ public class AdminMenu extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         editInfoBtn = new javax.swing.JButton();
         listBtn = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        reviewOps = new javax.swing.JButton();
         logoutBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -56,14 +56,19 @@ public class AdminMenu extends javax.swing.JFrame {
             }
         });
 
-        listBtn.setText("List of Users");
+        listBtn.setText("List of Users and Delete");
         listBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 listBtnActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Review Operations");
+        reviewOps.setText("Review Operations");
+        reviewOps.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reviewOpsActionPerformed(evt);
+            }
+        });
 
         logoutBtn.setText("Logout");
         logoutBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -83,7 +88,7 @@ public class AdminMenu extends javax.swing.JFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(editInfoBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(listBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(reviewOps, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(logoutBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -99,7 +104,7 @@ public class AdminMenu extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(listBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
+                .addComponent(reviewOps)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(logoutBtn)
                 .addContainerGap(47, Short.MAX_VALUE))
@@ -136,6 +141,12 @@ public class AdminMenu extends javax.swing.JFrame {
         list.setVisible(true);
         dispose();
     }//GEN-LAST:event_listBtnActionPerformed
+
+    private void reviewOpsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reviewOpsActionPerformed
+        ReviewOperations ops = new ReviewOperations();
+        ops.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_reviewOpsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -174,11 +185,11 @@ public class AdminMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton editInfoBtn;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton listBtn;
     private javax.swing.JButton logoutBtn;
+    private javax.swing.JButton reviewOps;
     // End of variables declaration//GEN-END:variables
 }

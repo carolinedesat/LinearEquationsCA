@@ -190,6 +190,7 @@ public class EditInfoRegularUser extends javax.swing.JFrame {
                 pstUpdate.setString(4, password);
                 pstUpdate.setString(5, oldUsername);
                 pstUpdate.execute();
+                
                 JOptionPane.showMessageDialog(null, "The update was successful!");
                 
                 RegularUserMenu menu = new RegularUserMenu();
