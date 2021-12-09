@@ -48,7 +48,7 @@ public class Calculator2x2 extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        calculate = new javax.swing.JButton();
 
         jLabel1.setText("jLabel1");
 
@@ -115,10 +115,10 @@ public class Calculator2x2 extends javax.swing.JFrame {
 
         jLabel16.setText("(   ;   )");
 
-        jButton1.setText("Calculate");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        calculate.setText("Calculate");
+        calculate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                calculateActionPerformed(evt);
             }
         });
 
@@ -139,7 +139,7 @@ public class Calculator2x2 extends javax.swing.JFrame {
                                 .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(calculate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel14)
@@ -200,7 +200,7 @@ public class Calculator2x2 extends javax.swing.JFrame {
                     .addComponent(jLabel6))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(calculate)
                     .addComponent(jLabel8)
                     .addComponent(jLabel16))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
@@ -239,10 +239,15 @@ public class Calculator2x2 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_y1ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void calculateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculateActionPerformed
         // TODO add your handling code here:
-     
-    }//GEN-LAST:event_jButton1ActionPerformed
+             Equations2Variables eq = new Equations2Variables();
+        eq.findDetA();
+        eq.newArray();
+        eq.findTheInverse();
+        eq.variablesResults();
+        
+    }//GEN-LAST:event_calculateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -281,7 +286,7 @@ public class Calculator2x2 extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;
-    protected javax.swing.JButton jButton1;
+    protected javax.swing.JButton calculate;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
