@@ -154,103 +154,116 @@ public class ListOfUsers extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelBtnActionPerformed
 
     private void showUsersBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showUsersBtnActionPerformed
-                  
+
+        //declares the list
         DefaultListModel DLM = new DefaultListModel();
-        
+
         try {
-            
+
             //loads the database driver
             Class.forName("com.mysql.cj.jdbc.Driver");
-            
+
             //retrieves and stores the query
             String query = "SELECT * FROM user";
-            
+
             //gets a connection to the database
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "*Dun04061620");
-                
+
             //gets a statement from the connection
             PreparedStatement pst = conn.prepareStatement(query);
-            
+
             //executes the query
             ResultSet rs = pst.executeQuery();
-            
+
+            //adds the usernames to the list
             while (rs.next()) {
                 String username = rs.getString("username");
                 DLM.addElement(username);
             }
-            
+
             list.setModel(DLM);
-            
+
         } catch (ClassNotFoundException | SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
-        
+
     }//GEN-LAST:event_showUsersBtnActionPerformed
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
+
+        //TO DO
+        //comment the dlm
         
+        //declares the list
         DefaultListModel DLM = new DefaultListModel();
+
+        //stores the text field inside a variable
         String username = usernameField.getText();
-        
+
         try {
-            
-                //loads the database driver
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                
-                //retrieves and stores the query
-		String isAdmin = "SELECT * FROM user WHERE username=?";
 
-                //gets a connection to the database
-		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "*Dun04061620");
-                
-                //gets a statement from the connection
-		PreparedStatement pstIsAdmin = conn.prepareStatement(isAdmin);
-                
-                pstIsAdmin.setString(1, username);
+            //loads the database driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
 
-		//executes the query
-		ResultSet rs = pstIsAdmin.executeQuery();
-                
-               if (rs.next()) {
-                    if (null != rs.getString("is_admin")) {
-                    
-                    JOptionPane.showMessageDialog(null, "Admin cannot be removed");
-                        System.out.println("test");
+            //retrieves and stores the query
+            String isAdmin = "SELECT * FROM user WHERE username=?";
 
-                    
+            //gets a connection to the database
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "*Dun04061620");
+
+            //gets a statement from the connection
+            PreparedStatement pstIsAdmin = conn.prepareStatement(isAdmin);
+
+            //passes the parameters
+            pstIsAdmin.setString(1, username);
+
+            //executes the query
+            ResultSet rs = pstIsAdmin.executeQuery();
+
+            //checks if the user is an admin; if yes, it can be delete; if not, it can
+            if (rs.next()) {
+                if (null != rs.getString("is_admin")) {
+
+                    JOptionPane.showMessageDialog(null, "Admin cannot be removed!");
+
                 } else {
-                    
+
+                    //stores the user id inside a variable
                     int user_id = rs.getInt("user_id");
-                    
+
                     //retrieves and stores the query
                     String deleteFK = "DELETE FROM operations WHERE user_id=?";
                     String deleteUser = "DELETE FROM user WHERE username=?";
-                     
+
                     //gets a statement from the connection
                     PreparedStatement pstDelete1 = conn.prepareStatement(deleteFK);
+                    
+                    //deletes foreign key from table operations
                     pstDelete1.setInt(1, user_id);
                     pstDelete1.execute();
-                    
+
                     //gets a statement from the connection
                     PreparedStatement pstDelete2 = conn.prepareStatement(deleteUser);
+                    
+                    //deletes user from table user
                     pstDelete2.setString(1, username);
                     pstDelete2.execute();
-                    JOptionPane.showMessageDialog(null, "User deleted with success");
-                    
+                    JOptionPane.showMessageDialog(null, "User deleted with success!");
 
-                    usernameField.setText("");
+                    //clears the table and username field
                     DLM.clear();
-            
-            list.setModel(DLM);
-                                       
+                    usernameField.setText("");
+
+                    list.setModel(DLM);
+
                 }
-                    
+
             }
- 
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
-        
+
     }//GEN-LAST:event_deleteBtnActionPerformed
 
     /**

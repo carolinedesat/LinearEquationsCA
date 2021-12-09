@@ -64,20 +64,10 @@ public class Calculator2x2 extends javax.swing.JFrame {
         jLabel3.setText("Type the constants for the following equations:");
 
         y1.setPreferredSize(new java.awt.Dimension(35, 26));
-        y1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                y1ActionPerformed(evt);
-            }
-        });
 
         jLabel4.setText("x +");
 
         x1.setPreferredSize(new java.awt.Dimension(35, 26));
-        x1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                x1ActionPerformed(evt);
-            }
-        });
 
         r1.setPreferredSize(new java.awt.Dimension(35, 26));
 
@@ -230,18 +220,9 @@ public class Calculator2x2 extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_backBtnActionPerformed
 
-    private void x1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_x1ActionPerformed
-        // TODO add your handling code here:
-     
-    }//GEN-LAST:event_x1ActionPerformed
-
-    private void y1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_y1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_y1ActionPerformed
-
     private void calculateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculateActionPerformed
-        // TODO add your handling code here:
-             Equations2Variables eq = new Equations2Variables();
+
+        Equations2Variables eq = new Equations2Variables();
         eq.findDetA();
         eq.newArray();
         eq.findTheInverse();
