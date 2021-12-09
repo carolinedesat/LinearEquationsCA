@@ -5,35 +5,27 @@
  */
 package GUI;
 
-import java.util.Scanner;
 
 /**
  *
  * @author Amanda Lima
  */
-public class Equations2Variables {
-    private float[][] originalEquation = new float[2][2];
+public class Equations2Variables extends Calculator2x2 {
+    public float[][] originalEquation = new float[2][2];
     private float[] resultColum = new float[2];
     private float[][] detAEquation = new float[2][2];
     private float detA;
     private float[][] inverse = new float [2][2];
     private float[] results = new float [2];
     
-    public void Equations2Variable(){
-        Scanner scan = new Scanner(System.in);
-        System.out.println("x");
-        this.originalEquation[0][0] = scan.nextFloat();
-        System.out.println("y");
-        this.originalEquation[0][1] = scan.nextFloat();
-        System.out.println("Result");
-        this.resultColum[0] = scan.nextFloat();
-        System.out.println("x again");
-        this.originalEquation[1][0] = scan.nextFloat();
-        System.out.println("y again");
-        this.originalEquation[1][1] = scan.nextFloat();
-        System.out.println("Result again");
-        this.resultColum[1] = scan.nextFloat();
-               
+    public void Equations2Variable(float [][] originalEquation){
+        this.originalEquation[0][0] = Float.parseFloat(x1.getText());
+        this.originalEquation[0][1] = Float.parseFloat(y1.getText());
+        this.resultColum[0] = Float.parseFloat(r1.getText());
+        this.originalEquation[1][0] = Float.parseFloat(x2.getText());;
+        this.originalEquation[1][1] = Float.parseFloat(y2.getText());;
+        this.resultColum[1] = Float.parseFloat(r2.getText());;
+             
     }
 
     public void setInverse(float[][] inverse) {
@@ -84,7 +76,7 @@ public class Equations2Variables {
     }
 
     public void newArray() {
-        this.detAEquation[0][0]= this.originalEquation[1][1];
+        this.detAEquation[0][0]= this.originalEquation[1][1];  //posicao d no lugar da posicao a na nova matrix
         this.detAEquation[0][1]= this.originalEquation[0][1]*-1;
         this.detAEquation[1][1]= this.originalEquation[0][0];
         this.detAEquation[1][0]= this.originalEquation[1][0]*-1;
@@ -103,11 +95,6 @@ public class Equations2Variables {
 
     public void variablesResults() {
         
-//        for(int row = 0; row < inverse.length; row++){
-//            for(int col = 0; col < inverse[row].length; col++){
-//                this.results[row]= (this.inverse[row][0]*this.resultColum[0])+(this.inverse[row][1]*this.resultColum[1]);
-//                }
-//        }
                 this.results[0]= (this.inverse[0][0]*this.resultColum[0])+(this.inverse[0][1]*this.resultColum[1]);
                 this.results[1]= (this.inverse[1][0]*this.resultColum[0])+(this.inverse[1][1]*this.resultColum[1]);
                 System.out.println(results[0] +", "+results[1]);       
