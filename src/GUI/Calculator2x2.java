@@ -233,7 +233,7 @@ public class Calculator2x2 extends javax.swing.JFrame {
         float detA;
         float[][] inverse = new float [2][2];
         float[] results = new float [2];
-    
+        
         originalEquation[0][0] = Float.parseFloat(x1.getText());
         originalEquation[0][1] = Float.parseFloat(y1.getText());
         resultColum[0] = Float.parseFloat(r1.getText());
@@ -242,26 +242,30 @@ public class Calculator2x2 extends javax.swing.JFrame {
         resultColum[1] = Float.parseFloat(r2.getText());
         
         detA = (originalEquation[0][0]*originalEquation[1][1])-(originalEquation[0][1]*originalEquation[1][0]);
-        
-        detAEquation[0][0]= originalEquation[1][1];  //posicao d no lugar da posicao a na nova matrix
-        detAEquation[0][1]= originalEquation[0][1]*-1;
-        detAEquation[1][1]= originalEquation[0][0];
-        detAEquation[1][0]= originalEquation[1][0]*-1;
-        
-        for(int row = 0; row < detAEquation.length; row++){
-            for(int col = 0; col < detAEquation[row].length; col++){
-                inverse[row][col]= (1/detA) * detAEquation[row][col]; 
-            }
+        if(detA == 0){
+            JOptionPane.showMessageDialog(null, "Determinante is 0. It is not possible calculate the variables values.");
         }
+        else{
+            detAEquation[0][0]= originalEquation[1][1];
+            detAEquation[0][1]= originalEquation[0][1]*-1;
+            detAEquation[1][1]= originalEquation[0][0];
+            detAEquation[1][0]= originalEquation[1][0]*-1;
+        
+            for(int row = 0; row < detAEquation.length; row++){
+                for(int col = 0; col < detAEquation[row].length; col++){
+                    inverse[row][col]= (1/detA) * detAEquation[row][col]; 
+                }
+            }
         
         results[0]= (inverse[0][0]*resultColum[0])+(inverse[0][1]*resultColum[1]);
         results[1]= (inverse[1][0]*resultColum[0])+(inverse[1][1]*resultColum[1]);
         
+        }
     }//GEN-LAST:event_calculateActionPerformed
 
     private void resultComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_resultComponentShown
         // TODO add your handling code here:
-        
+      
     }//GEN-LAST:event_resultComponentShown
 
     /**
