@@ -5,6 +5,10 @@
  */
 package GUI;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.text.DecimalFormat;
 import javax.swing.JOptionPane;
 
@@ -52,8 +56,8 @@ public class Calculator2x2 extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         resultX = new javax.swing.JLabel();
         calculateBtn = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
         resultY = new javax.swing.JLabel();
+        clearBtn = new javax.swing.JButton();
 
         jLabel1.setText("jLabel1");
 
@@ -93,6 +97,11 @@ public class Calculator2x2 extends javax.swing.JFrame {
 
         saveBtn.setText("Save");
         saveBtn.setPreferredSize(new java.awt.Dimension(100, 29));
+        saveBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveBtnActionPerformed(evt);
+            }
+        });
 
         backBtn.setText("Back");
         backBtn.setPreferredSize(new java.awt.Dimension(100, 29));
@@ -108,7 +117,7 @@ public class Calculator2x2 extends javax.swing.JFrame {
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel15.setText("2.");
 
-        resultX.setText("(   ");
+        resultX.setText("   ");
 
         calculateBtn.setText("Calculate");
         calculateBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -117,9 +126,14 @@ public class Calculator2x2 extends javax.swing.JFrame {
             }
         });
 
-        jLabel9.setText(";");
+        resultY.setText("   ");
 
-        resultY.setText("   )");
+        clearBtn.setText("Clear");
+        clearBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -131,51 +145,51 @@ public class Calculator2x2 extends javax.swing.JFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(saveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(calculateBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel14)
+                                    .addComponent(jLabel15))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(x1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel4))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(x2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel6)))
+                                .addGap(6, 6, 6)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(y1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(r1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(y2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel7)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(r2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(saveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(calculateBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel14)
-                                            .addComponent(jLabel15))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(x1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jLabel4))
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(x2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jLabel6)))
-                                        .addGap(6, 6, 6)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(y1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jLabel5)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(r1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(y2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jLabel7)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(r2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(resultX)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(resultY)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(resultY)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(clearBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -186,29 +200,31 @@ public class Calculator2x2 extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(y1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(x1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(r1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel14)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(r2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7)
-                    .addComponent(x2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(y2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel15)
-                    .addComponent(jLabel6))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(y1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(x1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(r1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel14)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(r2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7)
+                            .addComponent(x2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(y2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel15)
+                            .addComponent(jLabel6)))
+                    .addComponent(clearBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(calculateBtn)
                     .addComponent(jLabel8)
                     .addComponent(resultX)
-                    .addComponent(jLabel9)
                     .addComponent(resultY))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(saveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -237,54 +253,126 @@ public class Calculator2x2 extends javax.swing.JFrame {
 
     private void calculateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculateBtnActionPerformed
 
-        try {
-            
-        float[][] originalEquation = new float[2][2];
-        float[] resultColum = new float[2];
-        float[][] detAEquation = new float[2][2];
-        float detA;
-        float[][] inverse = new float [2][2];
-        float[] results = new float [2];
-        
-        originalEquation[0][0] = Float.parseFloat(x1.getText());
-        originalEquation[0][1] = Float.parseFloat(y1.getText());
-        resultColum[0] = Float.parseFloat(r1.getText());
-        originalEquation[1][0] = Float.parseFloat(x2.getText());
-        originalEquation[1][1] = Float.parseFloat(y2.getText());
-        resultColum[1] = Float.parseFloat(r2.getText());
-        
-        detA = (originalEquation[0][0]*originalEquation[1][1])-(originalEquation[0][1]*originalEquation[1][0]);
-        
-        if (detA == 0){
-            JOptionPane.showMessageDialog(null, "Determinante is 0. It is not possible calculate the variables values.");
+        if (x1.getText().matches("[a-zA-Z]+") || y1.getText().matches("[a-zA-Z]+") || r1.getText().matches("[a-zA-Z]+")
+                || x2.getText().matches("[a-zA-Z]+") || y2.getText().matches("[a-zA-Z]+") || r2.getText().matches("[a-zA-Z]+")) {
+
+            JOptionPane.showMessageDialog(null, "Enter a number; characters and symbols are not allowed.");
             
         } else {
 
-            detAEquation[0][0]= originalEquation[1][1];
-            detAEquation[0][1]= originalEquation[0][1]*-1;
-            detAEquation[1][1]= originalEquation[0][0];
-            detAEquation[1][0]= originalEquation[1][0]*-1;
-        
-            for(int row = 0; row < detAEquation.length; row++){
-                for(int col = 0; col < detAEquation[row].length; col++){
-                    inverse[row][col]= (1/detA) * detAEquation[row][col]; 
+            try {
+
+                float[][] originalEquation = new float[2][2];
+                float[] resultColum = new float[2];
+                float[][] detAEquation = new float[2][2];
+                float detA;
+                float[][] inverse = new float[2][2];
+                float[] results = new float[2];
+
+                originalEquation[0][0] = Float.parseFloat(x1.getText());
+                originalEquation[0][1] = Float.parseFloat(y1.getText());
+                resultColum[0] = Float.parseFloat(r1.getText());
+                originalEquation[1][0] = Float.parseFloat(x2.getText());
+                originalEquation[1][1] = Float.parseFloat(y2.getText());
+                resultColum[1] = Float.parseFloat(r2.getText());
+
+                detA = (originalEquation[0][0] * originalEquation[1][1]) - (originalEquation[0][1] * originalEquation[1][0]);
+
+                if (detA == 0) {
+                    JOptionPane.showMessageDialog(null, "Determinante is 0. It is not possible calculate the variables values.");
+
+                } else {
+
+                    detAEquation[0][0] = originalEquation[1][1];
+                    detAEquation[0][1] = originalEquation[0][1] * -1;
+                    detAEquation[1][1] = originalEquation[0][0];
+                    detAEquation[1][0] = originalEquation[1][0] * -1;
+
+                    for (int row = 0; row < detAEquation.length; row++) {
+                        for (int col = 0; col < detAEquation[row].length; col++) {
+                            inverse[row][col] = (1 / detA) * detAEquation[row][col];
+                        }
+                    }
+
+                    results[0] = (inverse[0][0] * resultColum[0]) + (inverse[0][1] * resultColum[1]);
+                    results[1] = (inverse[1][0] * resultColum[0]) + (inverse[1][1] * resultColum[1]);
+
+                    DecimalFormat df = new DecimalFormat("####0.00");
+                    resultX.setText("(" + df.format(results[0]) + " ;");
+                    resultY.setText(df.format(results[1]) + ")");
+
                 }
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error.");
             }
-        
-        results[0]= (inverse[0][0]*resultColum[0])+(inverse[0][1]*resultColum[1]);
-        results[1]= (inverse[1][0]*resultColum[0])+(inverse[1][1]*resultColum[1]);
-        
-        DecimalFormat df = new DecimalFormat("####0.00");
-        resultX.setText(df.format(results[0]));
-        resultY.setText(df.format(results[1]));
-        
+
         }
-            
+
+    }//GEN-LAST:event_calculateBtnActionPerformed
+
+    private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearBtnActionPerformed
+
+        x1.setText("");
+        y1.setText("");
+        r1.setText("");
+        x2.setText("");
+        y2.setText("");
+        r2.setText("");
+        resultX.setText("");
+        resultY.setText("");
+
+    }//GEN-LAST:event_clearBtnActionPerformed
+
+    private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
+
+        try {
+
+            if (resultX.getText().isEmpty() || resultY.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Nothing to save");
+
+            } else {
+
+                int user_id = 0;
+                String first_equation = null, second_equation = null, result = null;
+
+                //loads the database driver
+                Class.forName("com.mysql.cj.jdbc.Driver");
+
+                //retrieves and stores the query
+                String selectUser = "SELECT user_id FROM users WHERE username=?";
+                String insertOperation = "INSERT INTO operations (user_id, first_equation, second_equation, result) VALUES (?, ?, ?, ?)";
+
+                //gets a connection to the database
+                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "*Dun04061620");
+
+                //gets a statement from the connection
+                PreparedStatement pstUser = conn.prepareStatement(selectUser);
+
+                //executes the query
+                ResultSet rs = pstUser.executeQuery();
+
+                if (rs.next()) {
+                    user_id = rs.getInt("user_id");
+                }
+
+                PreparedStatement pstOperation = conn.prepareStatement(insertOperation);
+
+                pstOperation.setInt(1, user_id);
+                pstOperation.setString(2, first_equation);
+                pstOperation.setString(3, second_equation);
+                pstOperation.setString(4, result);
+                pstOperation.executeUpdate();
+
+                JOptionPane.showMessageDialog(null, "Operation saved!");
+
+            }
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error.");
         }
-        
-    }//GEN-LAST:event_calculateBtnActionPerformed
+
+    }//GEN-LAST:event_saveBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -324,6 +412,7 @@ public class Calculator2x2 extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;
     protected javax.swing.JButton calculateBtn;
+    private javax.swing.JButton clearBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -335,7 +424,6 @@ public class Calculator2x2 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     protected javax.swing.JTextField r1;
     protected javax.swing.JTextField r2;
