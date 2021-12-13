@@ -22,9 +22,9 @@ public class Equations2Variables extends Calculator2x2 {
         this.originalEquation[0][0] = Float.parseFloat(x1.getText());
         this.originalEquation[0][1] = Float.parseFloat(y1.getText());
         this.resultColum[0] = Float.parseFloat(r1.getText());
-        this.originalEquation[1][0] = Float.parseFloat(x2.getText());;
-        this.originalEquation[1][1] = Float.parseFloat(y2.getText());;
-        this.resultColum[1] = Float.parseFloat(r2.getText());;
+        this.originalEquation[1][0] = Float.parseFloat(x2.getText());
+        this.originalEquation[1][1] = Float.parseFloat(y2.getText());
+        this.resultColum[1] = Float.parseFloat(r2.getText());
              
     }
 

@@ -47,7 +47,7 @@ public class Calculator2x2 extends javax.swing.JFrame {
         backBtn = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
+        result = new javax.swing.JLabel();
         calculate = new javax.swing.JButton();
 
         jLabel1.setText("jLabel1");
@@ -103,7 +103,12 @@ public class Calculator2x2 extends javax.swing.JFrame {
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel15.setText("2.");
 
-        jLabel16.setText("(   ;   )");
+        result.setText("(   ;   )");
+        result.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                resultComponentShown(evt);
+            }
+        });
 
         calculate.setText("Calculate");
         calculate.addActionListener(new java.awt.event.ActionListener() {
@@ -161,7 +166,7 @@ public class Calculator2x2 extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel16)))
+                                .addComponent(result)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -192,7 +197,7 @@ public class Calculator2x2 extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(calculate)
                     .addComponent(jLabel8)
-                    .addComponent(jLabel16))
+                    .addComponent(result))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -222,14 +227,42 @@ public class Calculator2x2 extends javax.swing.JFrame {
 
     private void calculateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculateActionPerformed
 
-        Equations2Variables eq = new Equations2Variables();
-        eq.Equations2Variable();
-        eq.findDetA();
-        eq.newArray();
-        eq.findTheInverse();
-        eq.variablesResults();
-            
+        float[][] originalEquation = new float[2][2];
+        float[] resultColum = new float[2];
+        float[][] detAEquation = new float[2][2];
+        float detA;
+        float[][] inverse = new float [2][2];
+        float[] results = new float [2];
+    
+        originalEquation[0][0] = Float.parseFloat(x1.getText());
+        originalEquation[0][1] = Float.parseFloat(y1.getText());
+        resultColum[0] = Float.parseFloat(r1.getText());
+        originalEquation[1][0] = Float.parseFloat(x2.getText());
+        originalEquation[1][1] = Float.parseFloat(y2.getText());
+        resultColum[1] = Float.parseFloat(r2.getText());
+        
+        detA = (originalEquation[0][0]*originalEquation[1][1])-(originalEquation[0][1]*originalEquation[1][0]);
+        
+        detAEquation[0][0]= originalEquation[1][1];  //posicao d no lugar da posicao a na nova matrix
+        detAEquation[0][1]= originalEquation[0][1]*-1;
+        detAEquation[1][1]= originalEquation[0][0];
+        detAEquation[1][0]= originalEquation[1][0]*-1;
+        
+        for(int row = 0; row < detAEquation.length; row++){
+            for(int col = 0; col < detAEquation[row].length; col++){
+                inverse[row][col]= (1/detA) * detAEquation[row][col]; 
+            }
+        }
+        
+        results[0]= (inverse[0][0]*resultColum[0])+(inverse[0][1]*resultColum[1]);
+        results[1]= (inverse[1][0]*resultColum[0])+(inverse[1][1]*resultColum[1]);
+        
     }//GEN-LAST:event_calculateActionPerformed
+
+    private void resultComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_resultComponentShown
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_resultComponentShown
 
     /**
      * @param args the command line arguments
@@ -274,7 +307,6 @@ public class Calculator2x2 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -285,6 +317,7 @@ public class Calculator2x2 extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     protected javax.swing.JTextField r1;
     protected javax.swing.JTextField r2;
+    private javax.swing.JLabel result;
     protected javax.swing.JTextField x1;
     protected javax.swing.JTextField x2;
     protected javax.swing.JTextField y1;
