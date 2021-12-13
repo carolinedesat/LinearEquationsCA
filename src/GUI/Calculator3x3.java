@@ -5,6 +5,9 @@
  */
 package GUI;
 
+import java.text.DecimalFormat;
+import java.util.Scanner;
+
 /**
  *
  * @author carol
@@ -34,25 +37,25 @@ public class Calculator3x3 extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        x1 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        x2 = new javax.swing.JTextField();
+        y1 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        z1 = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        r1 = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
+        y2 = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
+        z2 = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
+        r2 = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         backBtn = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jLabel18 = new javax.swing.JLabel();
+        cal3x3 = new javax.swing.JButton();
+        resultX = new javax.swing.JLabel();
 
         jLabel5.setText("jLabel5");
 
@@ -73,33 +76,38 @@ public class Calculator3x3 extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel6.setText("2.");
 
-        jTextField2.setPreferredSize(new java.awt.Dimension(35, 26));
+        x1.setPreferredSize(new java.awt.Dimension(35, 26));
 
         jLabel3.setText("x +");
 
-        jTextField3.setPreferredSize(new java.awt.Dimension(35, 26));
+        x2.setPreferredSize(new java.awt.Dimension(35, 26));
 
-        jTextField4.setPreferredSize(new java.awt.Dimension(35, 26));
+        y1.setPreferredSize(new java.awt.Dimension(35, 26));
 
         jLabel7.setText("y +");
 
-        jTextField5.setPreferredSize(new java.awt.Dimension(35, 26));
+        z1.setPreferredSize(new java.awt.Dimension(35, 26));
 
         jLabel8.setText("z =");
 
-        jTextField6.setPreferredSize(new java.awt.Dimension(35, 26));
+        r1.setPreferredSize(new java.awt.Dimension(35, 26));
 
         jLabel9.setText("x +");
 
-        jTextField7.setPreferredSize(new java.awt.Dimension(35, 26));
+        y2.setPreferredSize(new java.awt.Dimension(35, 26));
 
         jLabel10.setText("y +");
 
-        jTextField8.setPreferredSize(new java.awt.Dimension(35, 26));
+        z2.setPreferredSize(new java.awt.Dimension(35, 26));
 
         jLabel12.setText("z =");
 
-        jTextField9.setPreferredSize(new java.awt.Dimension(35, 26));
+        r2.setPreferredSize(new java.awt.Dimension(35, 26));
+        r2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                r2ActionPerformed(evt);
+            }
+        });
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel13.setText("Result:");
@@ -115,9 +123,14 @@ public class Calculator3x3 extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Calculate");
+        cal3x3.setText("Calculate");
+        cal3x3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cal3x3ActionPerformed(evt);
+            }
+        });
 
-        jLabel18.setText("(   ;   )");
+        resultX.setText("(   ;   )");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -139,41 +152,41 @@ public class Calculator3x3 extends javax.swing.JFrame {
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel6)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(x2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jLabel9)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(y2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jLabel10)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(z2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(cal3x3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel13)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel18))
+                                        .addComponent(resultX))
                                     .addComponent(jLabel12)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(x1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(y1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(z1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(r2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(r1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -187,28 +200,28 @@ public class Calculator3x3 extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(x1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(y1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(z1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(r1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(x2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(y2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(z2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12)
-                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(r2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
+                    .addComponent(cal3x3)
                     .addComponent(jLabel13)
-                    .addComponent(jLabel18))
+                    .addComponent(resultX))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -235,6 +248,68 @@ public class Calculator3x3 extends javax.swing.JFrame {
         menu.setVisible(true);
         dispose();
     }//GEN-LAST:event_backBtnActionPerformed
+
+    private void r2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_r2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_r2ActionPerformed
+
+    private void cal3x3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cal3x3ActionPerformed
+        // TODO add your handling code here:
+        float[][] originalEquation = new float[3][3];
+        float[] resultColum = new float[3];
+        float [][] detAMinors = new float [3][3];
+        float detA;
+        float[][] adjoint = new float [3][3];
+        float[][] inverse = new float [3][3];
+        float[] results = new float[3];
+        
+        originalEquation[0][0] = Float.parseFloat(x1.getText());
+        originalEquation[0][1] = Float.parseFloat(y1.getText());
+        originalEquation[0][2] = Float.parseFloat(z1.getText());
+        resultColum[0] = Float.parseFloat(r1.getText());
+        originalEquation[1][0] = Float.parseFloat(x2.getText());
+        originalEquation[1][1] = Float.parseFloat(y2.getText());
+        originalEquation[1][2] = Float.parseFloat(z2.getText());
+        resultColum[1] = Float.parseFloat(r2.getText());
+        originalEquation[2][0] = Float.parseFloat(x3.getText());
+        originalEquation[2][1] = Float.parseFloat(y3.getText());
+        originalEquation[2][2] = Float.parseFloat(z3.getText());
+        resultColum[2] = Float.parseFloat(r3.getText());
+        
+        detAMinors [0][0]= (originalEquation[1][1]*originalEquation[2][2])-(originalEquation[1][2]*originalEquation[2][1]);
+        detAMinors [0][1]= ((originalEquation[1][0]*originalEquation[2][2])-(originalEquation[1][2]*originalEquation[2][0]))*-1;
+        detAMinors [0][2]= (originalEquation[1][0]*originalEquation[2][1])-(originalEquation[1][1]*originalEquation[2][0]);
+        detAMinors [1][0]= ((originalEquation[0][1]*originalEquation[2][2])-(originalEquation[0][2]*originalEquation[2][1]))*-1;
+        detAMinors [1][1]= (originalEquation[0][0]*originalEquation[2][2])-(originalEquation[0][2]*originalEquation[2][0]);
+        detAMinors [1][2]= ((originalEquation[0][0]*originalEquation[2][1])-(originalEquation[0][1]*originalEquation[2][0]))*-1;
+        detAMinors [2][0]= (originalEquation[0][1]*originalEquation[1][2])-(originalEquation[0][2]*originalEquation[1][1]);
+        detAMinors [2][1]= ((originalEquation[0][0]*originalEquation[1][2])-(originalEquation[0][2]*originalEquation[1][0]))*-1;
+        detAMinors [2][2]= (originalEquation[0][0]*originalEquation[1][1])-(originalEquation[0][1]*originalEquation[1][0]);     
+         
+        detA = (originalEquation[0][0]*detAMinors[0][0])+(originalEquation[0][1]*detAMinors[0][1])+(originalEquation[0][2]*detAMinors[0][2]);
+        
+        for(int row = 0; row < adjoint.length; row++){
+                for(int col = 0; col < adjoint[row].length; col++){
+                    adjoint[row][col]= detAMinors[col][row]; 
+                }
+        }
+        
+        for(int row = 0; row < adjoint.length; row++){
+            for(int col = 0; col < adjoint[row].length; col++){
+                inverse[row][col]= (1/detA) * adjoint[row][col]; 
+            }
+        }
+        
+        results[0]= (inverse[0][0]*resultColum[0])+(inverse[0][1]*resultColum[1])+(inverse[0][2]*resultColum[2]);
+        results[1]= (inverse[1][0]*resultColum[0])+(inverse[1][1]*resultColum[1])+(inverse[1][2]*resultColum[2]);
+        results[2]= (inverse[2][0]*resultColum[0])+(inverse[2][1]*resultColum[1])+(inverse[2][2]*resultColum[2]);
+        
+        DecimalFormat df = new DecimalFormat("####0.00");
+        resultX.setText(df.format(results[0]));
+        resultY.setText(df.format(results[1]));
+        resultZ.setText(df.format(results[1]));
+        
+    }//GEN-LAST:event_cal3x3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -273,14 +348,13 @@ public class Calculator3x3 extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;
+    private javax.swing.JButton cal3x3;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -290,13 +364,14 @@ public class Calculator3x3 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
+    private javax.swing.JTextField r1;
+    private javax.swing.JTextField r2;
+    private javax.swing.JLabel resultX;
+    private javax.swing.JTextField x1;
+    private javax.swing.JTextField x2;
+    private javax.swing.JTextField y1;
+    private javax.swing.JTextField y2;
+    private javax.swing.JTextField z1;
+    private javax.swing.JTextField z2;
     // End of variables declaration//GEN-END:variables
 }
