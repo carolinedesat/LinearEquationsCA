@@ -223,11 +223,12 @@ public class Calculator2x2 extends javax.swing.JFrame {
     private void calculateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculateActionPerformed
 
         Equations2Variables eq = new Equations2Variables();
+        eq.Equations2Variable();
         eq.findDetA();
         eq.newArray();
         eq.findTheInverse();
         eq.variablesResults();
-        
+            
     }//GEN-LAST:event_calculateActionPerformed
 
     /**

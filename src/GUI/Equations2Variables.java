@@ -18,7 +18,7 @@ public class Equations2Variables extends Calculator2x2 {
     private float[][] inverse = new float [2][2];
     private float[] results = new float [2];
     
-    public void Equations2Variable(float [][] originalEquation){
+    public void Equations2Variable(){
         this.originalEquation[0][0] = Float.parseFloat(x1.getText());
         this.originalEquation[0][1] = Float.parseFloat(y1.getText());
         this.resultColum[0] = Float.parseFloat(r1.getText());
