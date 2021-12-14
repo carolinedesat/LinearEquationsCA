@@ -55,16 +55,7 @@ public class ReviewOperations extends javax.swing.JFrame {
 
         myTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Username", "Equation 1", "Equation 2", "Equation 3", "Result", "Date"
@@ -138,48 +129,48 @@ public class ReviewOperations extends javax.swing.JFrame {
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         AdminMenu menu = new AdminMenu();
         menu.setVisible(true);
-        dispose(); 
+        dispose();
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void showBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showBtnActionPerformed
-        
+
         try {
-            
-                //loads the database driver
-                Class.forName("com.mysql.cj.jdbc.Driver");
 
-                //retrieves and stores the query
-                String review = "SELECT user.username, operations.first_equation, operations.second_equation, "
-                        + "operations.third_equation, operations.result, operations.date FROM operations INNER JOIN "
-                        + "user ON operations.user_id = user.user_id ORDER BY username";
-                
-                //gets a connection to the database
-                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "*Dun04061620");
+            //loads the database driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
 
-                //gets a statement from the connection
-                PreparedStatement pst = conn.prepareStatement(review);
-                
-                //executes the query
-                ResultSet rs = pst.executeQuery();
+            //retrieves and stores the query
+            String review = "SELECT user.username, operations.first_equation, operations.second_equation, "
+                    + "operations.third_equation, operations.result, operations.date FROM operations INNER JOIN "
+                    + "user ON operations.user_id = user.user_id ORDER BY username";
 
-                while (rs.next()) {
-                    String username = rs.getString("username");
-                    String first_equation = rs.getString("first_equation");
-                    String second_equation = rs.getString("second_equation");
-                    String third_equation = rs.getString("third_equation");
-                    String result = rs.getString("result");
-                    String date = rs.getString("date");
-                
+            //gets a connection to the database
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "*Dun04061620");
+
+            //gets a statement from the connection
+            PreparedStatement pst = conn.prepareStatement(review);
+
+            //executes the query
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                String username = rs.getString("username");
+                String first_equation = rs.getString("first_equation");
+                String second_equation = rs.getString("second_equation");
+                String third_equation = rs.getString("third_equation");
+                String result = rs.getString("result");
+                String date = rs.getString("date");
+
                 String tbData[] = {username, first_equation, second_equation, third_equation, result, date};
-                DefaultTableModel tblmodel = (DefaultTableModel)myTable.getModel();
-                
+                DefaultTableModel tblmodel = (DefaultTableModel) myTable.getModel();
+
                 tblmodel.addRow(tbData);
-                }
-            
+            }
+
         } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, e);
         }
-        
+
     }//GEN-LAST:event_showBtnActionPerformed
 
     /**

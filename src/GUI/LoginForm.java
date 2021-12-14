@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -83,6 +84,12 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
 
+        passwordField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                passwordFieldKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -152,9 +159,6 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
 
-        //TO DO
-        //CODE THE ENTER KEYPRESSED
-        
         //stores the text fields inside variables
         String username = usernameField.getText();
         String password = passwordField.getText();
@@ -232,6 +236,85 @@ public class LoginForm extends javax.swing.JFrame {
         registration.setVisible(true);
         dispose();
     }//GEN-LAST:event_registerBtnActionPerformed
+
+    private void passwordFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordFieldKeyPressed
+
+        //WHEN THE USER PRESSES ENTER
+        //stores the text fields inside variables
+        String username = usernameField.getText();
+        String password = passwordField.getText();
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
+            //checks if there is any input inside the username and password fields
+            if (username.isEmpty()) {
+
+                usernameWarning.setText("Enter a username");
+                passwordWarning.setText("");
+
+            } else if (password.isEmpty()) {
+
+                passwordWarning.setText("Enter a password");
+                usernameWarning.setText("");
+
+            } else {
+
+                try {
+
+                    //loads the database driver
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+
+                    //retrieves and stores the query
+                    String query = "SELECT * FROM user WHERE username=? and password=?";
+
+                    //gets a connection to the database
+                    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "*Dun04061620");
+
+                    //gets a statement from the connection
+                    PreparedStatement pst = conn.prepareStatement(query);
+
+                    //passses all the parameters
+                    pst.setString(1, usernameField.getText());
+                    pst.setString(2, passwordField.getText());
+
+                    //executes the query
+                    ResultSet rs = pst.executeQuery();
+
+                    //checks if the user is an admin; if not, change to regular user menu; if yes, change to admin menu
+                    if (rs.next()) {
+
+                        if (null == rs.getString("is_admin")) {
+
+                            RegularUserMenu menu = new RegularUserMenu();
+                            menu.setVisible(true);
+                            dispose();
+
+                        } else if (null != rs.getString("is_admin")) {
+
+                            AdminMenu menu = new AdminMenu();
+                            menu.setVisible(true);
+                            dispose();
+
+                        }
+
+                    } else {
+
+                        //if username and password are incorrect, show error message and clear fields
+                        JOptionPane.showMessageDialog(null, "Incorrect username or password");
+                        usernameField.setText("");
+                        passwordField.setText("");
+
+                    }
+
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, e);
+                }
+
+            }
+
+        }
+
+    }//GEN-LAST:event_passwordFieldKeyPressed
 
     /**
      * @param args the command line arguments
