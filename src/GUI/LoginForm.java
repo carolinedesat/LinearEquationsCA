@@ -275,10 +275,10 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton loginBtn;
-    private javax.swing.JPasswordField passwordField;
+    protected javax.swing.JPasswordField passwordField;
     private javax.swing.JLabel passwordWarning;
     private javax.swing.JButton registerBtn;
-    private javax.swing.JTextField usernameField;
+    protected javax.swing.JTextField usernameField;
     private javax.swing.JLabel usernameWarning;
     // End of variables declaration//GEN-END:variables
 }
