@@ -11,6 +11,10 @@ package GUI;
  */
 public class RegularUserMenu extends javax.swing.JFrame {
 
+    public void my_update(String str) {
+        greeting.setText(str);
+    }
+
     /**
      * Creates new form RegularUserMenu
      */
@@ -37,6 +41,7 @@ public class RegularUserMenu extends javax.swing.JFrame {
         calculator2x2 = new javax.swing.JButton();
         logoutBtn = new javax.swing.JButton();
         calculator3x3 = new javax.swing.JButton();
+        greeting = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -76,6 +81,10 @@ public class RegularUserMenu extends javax.swing.JFrame {
             }
         });
 
+        greeting.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        greeting.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        greeting.setText("");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -88,7 +97,8 @@ public class RegularUserMenu extends javax.swing.JFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(editInfoBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(calculator2x2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(logoutBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(logoutBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(greeting, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -98,7 +108,9 @@ public class RegularUserMenu extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(greeting)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(editInfoBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(calculator2x2)
@@ -106,7 +118,7 @@ public class RegularUserMenu extends javax.swing.JFrame {
                 .addComponent(calculator3x3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(logoutBtn)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         pack();
@@ -121,18 +133,22 @@ public class RegularUserMenu extends javax.swing.JFrame {
     private void editInfoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editInfoBtnActionPerformed
         EditInfoRegularUser menu = new EditInfoRegularUser();
         menu.setVisible(true);
-        dispose(); 
+        dispose();
     }//GEN-LAST:event_editInfoBtnActionPerformed
 
     private void calculator2x2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculator2x2ActionPerformed
-        Calculator2x2 calc = new Calculator2x2();
-        calc.setVisible(true);
+        String str = greeting.getText();
+        Calculator2x2 obj = new Calculator2x2();
+        obj.my_update(str);
+        obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_calculator2x2ActionPerformed
 
     private void calculator3x3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculator3x3ActionPerformed
-        Calculator3x3 calc = new Calculator3x3();
-        calc.setVisible(true);
+        String str = greeting.getText();
+        Calculator3x3 obj = new Calculator3x3();
+        obj.my_update(str);
+        obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_calculator3x3ActionPerformed
 
@@ -175,6 +191,7 @@ public class RegularUserMenu extends javax.swing.JFrame {
     private javax.swing.JButton calculator2x2;
     private javax.swing.JButton calculator3x3;
     private javax.swing.JButton editInfoBtn;
+    private javax.swing.JLabel greeting;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JButton logoutBtn;

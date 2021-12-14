@@ -5,7 +5,6 @@
  */
 package GUI;
 
-import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -17,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author carol
  */
-public class ReviewOperations extends javax.swing.JFrame {
+public class ReviewOperations extends javax.swing.JFrame { 
 
     /**
      * Creates new form ReviewOperations

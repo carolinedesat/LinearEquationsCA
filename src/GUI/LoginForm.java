@@ -202,8 +202,10 @@ public class LoginForm extends javax.swing.JFrame {
 
                     if (null == rs.getString("is_admin")) {
 
-                        RegularUserMenu menu = new RegularUserMenu();
-                        menu.setVisible(true);
+                        String str = usernameField.getText();
+                        RegularUserMenu obj = new RegularUserMenu();
+                        obj.my_update(str);
+                        obj.setVisible(true);
                         dispose();
 
                     } else if (null != rs.getString("is_admin")) {
@@ -285,8 +287,10 @@ public class LoginForm extends javax.swing.JFrame {
 
                         if (null == rs.getString("is_admin")) {
 
-                            RegularUserMenu menu = new RegularUserMenu();
-                            menu.setVisible(true);
+                            String str = usernameField.getText();
+                            RegularUserMenu obj = new RegularUserMenu();
+                            obj.my_update(str);
+                            obj.setVisible(true);
                             dispose();
 
                         } else if (null != rs.getString("is_admin")) {

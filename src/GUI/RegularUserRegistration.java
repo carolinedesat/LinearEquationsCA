@@ -174,7 +174,6 @@ public class RegularUserRegistration extends javax.swing.JFrame {
     private void registerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerBtnActionPerformed
 
         //READY TO GO
-        
         //stores the text fields inside variables
         String first_name = firstNameField.getText();
         String last_name = lastNameField.getText();
@@ -250,10 +249,10 @@ public class RegularUserRegistration extends javax.swing.JFrame {
                     pstInsert.execute();
                     JOptionPane.showMessageDialog(null, "The registration was successful!");
 
-                    //changes to regular user menu
-                    RegularUserMenu menu = new RegularUserMenu();
-                    menu.setVisible(true);
-                    setVisible(false);
+                    //changes to login form
+                    LoginForm login = new LoginForm();
+                    login.setVisible(true);
+                    dispose();
                 }
 
             } catch (Exception e) {
