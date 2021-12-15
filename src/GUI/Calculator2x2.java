@@ -23,6 +23,9 @@ import javax.swing.JOptionPane;
  */
 public class Calculator2x2 extends javax.swing.JFrame {
 
+    /**
+     * Method that receives the username from the previous page.
+     */
     public void my_update(String str) {
         greeting.setText(str);
     }
@@ -265,15 +268,22 @@ public class Calculator2x2 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
+
+        //stores the username content inside the variable str and carries the username to the previous Jframe
         String str = greeting.getText();
         RegularUserMenu obj = new RegularUserMenu();
         obj.my_update(str);
         obj.setVisible(true);
         dispose();
+
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void calculateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculateBtnActionPerformed
 
+        /**
+         * When the calculate button is clicked, perform the calculation using 2
+         * variables.
+         */
         if (x1.getText().matches("[a-zA-Z]+") || y1.getText().matches("[a-zA-Z]+") || r1.getText().matches("[a-zA-Z]+")
                 || x2.getText().matches("[a-zA-Z]+") || y2.getText().matches("[a-zA-Z]+") || r2.getText().matches("[a-zA-Z]+")) {
 
@@ -334,6 +344,9 @@ public class Calculator2x2 extends javax.swing.JFrame {
 
     private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearBtnActionPerformed
 
+        /**
+         * Allows the user to login after entering the right details.
+         */
         x1.setText("");
         y1.setText("");
         r1.setText("");
@@ -347,6 +360,9 @@ public class Calculator2x2 extends javax.swing.JFrame {
 
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
 
+        /**
+         * Saves the operation into the database.
+         */
         try {
 
             if (resultX.getText().isEmpty() || resultY.getText().isEmpty()) {
@@ -401,6 +417,9 @@ public class Calculator2x2 extends javax.swing.JFrame {
 
     private void r2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_r2KeyPressed
 
+        /**
+         * Allows the user to use the enter key instead of the calculate button.
+         */
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
 
             if (x1.getText().matches("[a-zA-Z]+") || y1.getText().matches("[a-zA-Z]+") || r1.getText().matches("[a-zA-Z]+")

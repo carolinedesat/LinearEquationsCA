@@ -18,6 +18,9 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ReviewOperations extends javax.swing.JFrame {
 
+    /**
+     * Method that receives the username from the previous page.
+     */
     public void my_update(String str) {
         greeting.setText(str);
     }
@@ -118,7 +121,7 @@ public class ReviewOperations extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(backBtn)
                     .addComponent(showBtn))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -138,15 +141,22 @@ public class ReviewOperations extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
+
+        //stores the username content inside the variable str and carries the username to the previous Jframe
         String str = greeting.getText();
         AdminMenu obj = new AdminMenu();
         obj.my_update(str);
         obj.setVisible(true);
         dispose();
+
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void showBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showBtnActionPerformed
 
+        /**
+         * Allows the admin to see the performed operations including username, all
+         * the equations, results and date.
+         */
         try {
 
             //loads the database driver
@@ -166,6 +176,7 @@ public class ReviewOperations extends javax.swing.JFrame {
             //executes the query
             ResultSet rs = pst.executeQuery();
 
+            //while loop to create all the variables and output them inside the JTable
             while (rs.next()) {
                 String username = rs.getString("username");
                 String first_equation = rs.getString("first_equation");
@@ -174,9 +185,13 @@ public class ReviewOperations extends javax.swing.JFrame {
                 String result = rs.getString("result");
                 String date = rs.getString("date");
 
+                //array that ouputs all the information using the JTable
                 String tbData[] = {username, first_equation, second_equation, third_equation, result, date};
-                DefaultTableModel tblmodel = (DefaultTableModel) myTable.getModel();
+                DefaultTableModel tblmodel = (DefaultTableModel) 
+                
+                myTable.getModel();
 
+                //adds a new row for each record
                 tblmodel.addRow(tbData);
             }
 

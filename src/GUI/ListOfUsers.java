@@ -20,6 +20,9 @@ import javax.swing.JOptionPane;
  */
 public class ListOfUsers extends javax.swing.JFrame {
 
+    /**
+     * Method that receives the username from the previous page.
+     */
     public void my_update(String str) {
         greeting.setText(str);
     }
@@ -167,15 +170,22 @@ public class ListOfUsers extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
+
+        //stores the username content inside the variable str and carries the username to the previous Jframe
         String str = greeting.getText();
         AdminMenu obj = new AdminMenu();
         obj.my_update(str);
         obj.setVisible(true);
         dispose();
+
     }//GEN-LAST:event_cancelBtnActionPerformed
 
     private void showUsersBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showUsersBtnActionPerformed
 
+        /**
+         * Gives the admin access to a list that outputs all the users in the
+         * database.
+         */
         //declares the list
         DefaultListModel DLM = new DefaultListModel();
 
@@ -212,6 +222,10 @@ public class ListOfUsers extends javax.swing.JFrame {
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
 
+        /**
+         * Makes it possible for the admin to delete a user from the JList,
+         * program and database.
+         */
         //declares the list
         DefaultListModel DLM = new DefaultListModel();
 
@@ -290,6 +304,9 @@ public class ListOfUsers extends javax.swing.JFrame {
 
     private void usernameFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usernameFieldKeyPressed
 
+        /**
+         * Allows the admin to enter the username that is to be deleted.
+         */
         //declares the list
         DefaultListModel DLM = new DefaultListModel();
 

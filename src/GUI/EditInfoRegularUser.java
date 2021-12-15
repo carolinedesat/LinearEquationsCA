@@ -192,6 +192,10 @@ public class EditInfoRegularUser extends javax.swing.JFrame {
 
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
 
+        /**
+         * Allows the regular user to change first name, last name, username and
+         * password into the program and database.
+         */
         //stores the text fields inside variables
         String first_name = firstNameField.getText();
         String last_name = lastNameField.getText();
@@ -275,7 +279,7 @@ public class EditInfoRegularUser extends javax.swing.JFrame {
     private void passwordFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordFieldKeyPressed
 
         /**
-         * Allows the user to use the enter key instead of the register button.
+         * Allows the regular user to use the enter key instead of the save button.
          */
         //stores the text fields inside variables
         String first_name = firstNameField.getText();

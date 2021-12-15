@@ -178,16 +178,19 @@ public class RegularUserRegistration extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
-        
+
         //brings the user back to the login page
         LoginForm login = new LoginForm();
         login.setVisible(true);
         dispose();
-        
+
     }//GEN-LAST:event_cancelBtnActionPerformed
 
     private void registerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerBtnActionPerformed
 
+        /**
+         * Allows the user to register into the program and database.
+         */
         //stores the text fields inside variables
         String first_name = firstNameField.getText();
         String last_name = lastNameField.getText();
@@ -266,10 +269,9 @@ public class RegularUserRegistration extends javax.swing.JFrame {
 
     private void passwordFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordFieldKeyPressed
 
-         /**
+        /**
          * Allows the user to use the enter key instead of the register button.
-         */        
-        
+         */
         //stores the text fields inside variables
         String first_name = firstNameField.getText();
         String last_name = lastNameField.getText();
@@ -351,8 +353,11 @@ public class RegularUserRegistration extends javax.swing.JFrame {
     }//GEN-LAST:event_passwordFieldKeyPressed
 
     private void passwordFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passwordFieldMouseClicked
+        
+        //clears password field and password warning when password fiend is clicked
         passwordField.setText("");
         passwordWarning.setText("");
+        
     }//GEN-LAST:event_passwordFieldMouseClicked
 
     /**
