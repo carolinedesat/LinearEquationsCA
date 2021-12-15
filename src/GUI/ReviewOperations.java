@@ -16,7 +16,11 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author carol
  */
-public class ReviewOperations extends javax.swing.JFrame { 
+public class ReviewOperations extends javax.swing.JFrame {
+
+    public void my_update(String str) {
+        greeting.setText(str);
+    }
 
     /**
      * Creates new form ReviewOperations
@@ -41,6 +45,7 @@ public class ReviewOperations extends javax.swing.JFrame {
         myTable = new javax.swing.JTable();
         backBtn = new javax.swing.JButton();
         showBtn = new javax.swing.JButton();
+        greeting = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,12 +74,16 @@ public class ReviewOperations extends javax.swing.JFrame {
             }
         });
 
-        showBtn.setText("Show data");
+        showBtn.setText("Show All Operations");
         showBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 showBtnActionPerformed(evt);
             }
         });
+
+        greeting.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        greeting.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        greeting.setText("greeting");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -83,6 +92,7 @@ public class ReviewOperations extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(greeting, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -100,13 +110,15 @@ public class ReviewOperations extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(greeting)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(backBtn)
                     .addComponent(showBtn))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -126,8 +138,10 @@ public class ReviewOperations extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
-        AdminMenu menu = new AdminMenu();
-        menu.setVisible(true);
+        String str = greeting.getText();
+        AdminMenu obj = new AdminMenu();
+        obj.my_update(str);
+        obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_backBtnActionPerformed
 
@@ -209,6 +223,7 @@ public class ReviewOperations extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;
+    private javax.swing.JLabel greeting;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

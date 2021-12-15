@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -18,6 +19,10 @@ import javax.swing.JOptionPane;
  * @author carol
  */
 public class ListOfUsers extends javax.swing.JFrame {
+
+    public void my_update(String str) {
+        greeting.setText(str);
+    }
 
     /**
      * Creates new form ListOfUsers
@@ -45,6 +50,7 @@ public class ListOfUsers extends javax.swing.JFrame {
         deleteBtn = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         usernameField = new javax.swing.JTextField();
+        greeting = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -90,6 +96,16 @@ public class ListOfUsers extends javax.swing.JFrame {
 
         jLabel3.setText("Enter username to delete:");
 
+        usernameField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                usernameFieldKeyPressed(evt);
+            }
+        });
+
+        greeting.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        greeting.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        greeting.setText("greeting");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -97,6 +113,7 @@ public class ListOfUsers extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(greeting, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -119,13 +136,15 @@ public class ListOfUsers extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(greeting)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(showUsersBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -141,15 +160,17 @@ public class ListOfUsers extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
-        AdminMenu menu = new AdminMenu();
-        menu.setVisible(true);
+        String str = greeting.getText();
+        AdminMenu obj = new AdminMenu();
+        obj.my_update(str);
+        obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_cancelBtnActionPerformed
 
@@ -191,9 +212,6 @@ public class ListOfUsers extends javax.swing.JFrame {
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
 
-        //TO DO
-        //comment the dlm
-        
         //declares the list
         DefaultListModel DLM = new DefaultListModel();
 
@@ -232,22 +250,26 @@ public class ListOfUsers extends javax.swing.JFrame {
                     int user_id = rs.getInt("user_id");
 
                     //retrieves and stores the query
+                    String deletePK = "DELETE FROM user WHERE user_id=?";
                     String deleteFK = "DELETE FROM operations WHERE user_id=?";
                     String deleteUser = "DELETE FROM user WHERE username=?";
 
                     //gets a statement from the connection
-                    PreparedStatement pstDelete1 = conn.prepareStatement(deleteFK);
-                    
-                    //deletes foreign key from table operations
+                    PreparedStatement pstDelete1 = conn.prepareStatement(deletePK);
+                    PreparedStatement pstDelete2 = conn.prepareStatement(deletePK);
+                    PreparedStatement pstDelete3 = conn.prepareStatement(deleteUser);
+
+                    //deletes primary key from table user
                     pstDelete1.setInt(1, user_id);
                     pstDelete1.execute();
 
-                    //gets a statement from the connection
-                    PreparedStatement pstDelete2 = conn.prepareStatement(deleteUser);
-                    
-                    //deletes user from table user
-                    pstDelete2.setString(1, username);
+                    //deletes foreign key from table operations
+                    pstDelete2.setInt(1, user_id);
                     pstDelete2.execute();
+
+                    //deletes user from table user
+                    pstDelete3.setString(1, username);
+                    pstDelete3.execute();
                     JOptionPane.showMessageDialog(null, "User deleted with success!");
 
                     //clears the table and username field
@@ -265,6 +287,84 @@ public class ListOfUsers extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_deleteBtnActionPerformed
+
+    private void usernameFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usernameFieldKeyPressed
+
+        //declares the list
+        DefaultListModel DLM = new DefaultListModel();
+
+        //stores the text field inside a variable
+        String username = usernameField.getText();
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
+            try {
+
+                //loads the database driver
+                Class.forName("com.mysql.cj.jdbc.Driver");
+
+                //retrieves and stores the query
+                String isAdmin = "SELECT * FROM user WHERE username=?";
+
+                //gets a connection to the database
+                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "*Dun04061620");
+
+                //gets a statement from the connection
+                PreparedStatement pstIsAdmin = conn.prepareStatement(isAdmin);
+
+                //passes the parameters
+                pstIsAdmin.setString(1, username);
+
+                //executes the query
+                ResultSet rs = pstIsAdmin.executeQuery();
+
+                //checks if the user is an admin; if yes, it can be delete; if not, it can
+                if (rs.next()) {
+                    if (null != rs.getString("is_admin")) {
+
+                        JOptionPane.showMessageDialog(null, "Admin cannot be removed!");
+
+                    } else {
+
+                        //stores the user id inside a variable
+                        int user_id = rs.getInt("user_id");
+
+                        //retrieves and stores the query
+                        String deleteFK = "DELETE FROM operations WHERE user_id=?";
+                        String deleteUser = "DELETE FROM user WHERE username=?";
+
+                        //gets a statement from the connection
+                        PreparedStatement pstDelete1 = conn.prepareStatement(deleteFK);
+
+                        //deletes foreign key from table operations
+                        pstDelete1.setInt(1, user_id);
+                        pstDelete1.execute();
+
+                        //gets a statement from the connection
+                        PreparedStatement pstDelete2 = conn.prepareStatement(deleteUser);
+
+                        //deletes user from table user
+                        pstDelete2.setString(1, username);
+                        pstDelete2.execute();
+                        JOptionPane.showMessageDialog(null, "User deleted with success!");
+
+                        //clears the table and username field
+                        DLM.clear();
+                        usernameField.setText("");
+
+                        list.setModel(DLM);
+
+                    }
+
+                }
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+
+        }
+
+    }//GEN-LAST:event_usernameFieldKeyPressed
 
     /**
      * @param args the command line arguments
@@ -304,6 +404,7 @@ public class ListOfUsers extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelBtn;
     private javax.swing.JButton deleteBtn;
+    private javax.swing.JLabel greeting;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

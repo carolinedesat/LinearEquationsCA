@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -105,6 +106,11 @@ public class Calculator2x2 extends javax.swing.JFrame {
         jLabel7.setText("y =");
 
         r2.setPreferredSize(new java.awt.Dimension(35, 26));
+        r2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                r2KeyPressed(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel8.setText("Result:");
@@ -340,7 +346,7 @@ public class Calculator2x2 extends javax.swing.JFrame {
     }//GEN-LAST:event_clearBtnActionPerformed
 
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
-        
+
         try {
 
             if (resultX.getText().isEmpty() || resultY.getText().isEmpty()) {
@@ -392,6 +398,70 @@ public class Calculator2x2 extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_saveBtnActionPerformed
+
+    private void r2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_r2KeyPressed
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
+            if (x1.getText().matches("[a-zA-Z]+") || y1.getText().matches("[a-zA-Z]+") || r1.getText().matches("[a-zA-Z]+")
+                    || x2.getText().matches("[a-zA-Z]+") || y2.getText().matches("[a-zA-Z]+") || r2.getText().matches("[a-zA-Z]+")) {
+
+                JOptionPane.showMessageDialog(null, "Enter a number; characters and symbols are not allowed.");
+
+            } else {
+
+                try {
+
+                    float[][] originalEquation = new float[2][2];
+                    float[] resultColum = new float[2];
+                    float[][] detAEquation = new float[2][2];
+                    float detA;
+                    float[][] inverse = new float[2][2];
+                    float[] results = new float[2];
+
+                    originalEquation[0][0] = Float.parseFloat(x1.getText());
+                    originalEquation[0][1] = Float.parseFloat(y1.getText());
+                    resultColum[0] = Float.parseFloat(r1.getText());
+                    originalEquation[1][0] = Float.parseFloat(x2.getText());
+                    originalEquation[1][1] = Float.parseFloat(y2.getText());
+                    resultColum[1] = Float.parseFloat(r2.getText());
+
+                    detA = (originalEquation[0][0] * originalEquation[1][1]) - (originalEquation[0][1] * originalEquation[1][0]);
+
+                    if (detA == 0) {
+                        JOptionPane.showMessageDialog(null, "Determinante is 0. It is not possible calculate the variables values.");
+
+                    } else {
+
+                        detAEquation[0][0] = originalEquation[1][1];
+                        detAEquation[0][1] = originalEquation[0][1] * -1;
+                        detAEquation[1][1] = originalEquation[0][0];
+                        detAEquation[1][0] = originalEquation[1][0] * -1;
+
+                        for (int row = 0; row < detAEquation.length; row++) {
+                            for (int col = 0; col < detAEquation[row].length; col++) {
+                                inverse[row][col] = (1 / detA) * detAEquation[row][col];
+                            }
+                        }
+
+                        results[0] = (inverse[0][0] * resultColum[0]) + (inverse[0][1] * resultColum[1]);
+                        results[1] = (inverse[1][0] * resultColum[0]) + (inverse[1][1] * resultColum[1]);
+
+                        DecimalFormat df = new DecimalFormat("####0.00");
+                        resultX.setText("(" + df.format(results[0]) + " ;");
+                        resultY.setText(df.format(results[1]) + ")");
+
+                    }
+
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Error.");
+                }
+
+            }
+
+        }
+
+    }//GEN-LAST:event_r2KeyPressed
 
     /**
      * @param args the command line arguments

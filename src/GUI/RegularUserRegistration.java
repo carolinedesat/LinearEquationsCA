@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -75,6 +76,17 @@ public class RegularUserRegistration extends javax.swing.JFrame {
         cancelBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelBtnActionPerformed(evt);
+            }
+        });
+
+        passwordField.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                passwordFieldMouseClicked(evt);
+            }
+        });
+        passwordField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                passwordFieldKeyPressed(evt);
             }
         });
 
@@ -166,14 +178,16 @@ public class RegularUserRegistration extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
+        
+        //brings the user back to the login page
         LoginForm login = new LoginForm();
         login.setVisible(true);
         dispose();
+        
     }//GEN-LAST:event_cancelBtnActionPerformed
 
     private void registerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerBtnActionPerformed
 
-        //READY TO GO
         //stores the text fields inside variables
         String first_name = firstNameField.getText();
         String last_name = lastNameField.getText();
@@ -185,23 +199,9 @@ public class RegularUserRegistration extends javax.swing.JFrame {
 
             JOptionPane.showMessageDialog(null, "A required field is missing. Please fill out all required fields and try again.");
 
-            //checks if the password contains at least 8 characters, one uppercase & a number
+            //checks if the password contains at least 8 characters
         } else if (password.length() < 8) {
-            passwordWarning.setText("Please enter at least 8 characters, one uppercase & a number.");
-
-            char c;
-            int count = 1;
-            for (int i = 0; i < password.length() - 1; i++) {
-                c = password.charAt(i);
-                if (!Character.isLetterOrDigit(c)) {
-                    passwordWarning.setText("Please enter at least 8 characters, one uppercase & a number.");
-                } else if (Character.isDigit(c)) {
-                    count++;
-                    if (count < 2) {
-                        passwordWarning.setText("Please enter at least 8 characters, one uppercase & a number.");
-                    }
-                }
-            }
+            passwordWarning.setText("Please enter at least 8 characters.");
 
         } else {
 
@@ -253,6 +253,7 @@ public class RegularUserRegistration extends javax.swing.JFrame {
                     LoginForm login = new LoginForm();
                     login.setVisible(true);
                     dispose();
+
                 }
 
             } catch (Exception e) {
@@ -262,6 +263,97 @@ public class RegularUserRegistration extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_registerBtnActionPerformed
+
+    private void passwordFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordFieldKeyPressed
+
+         /**
+         * Allows the user to use the enter key instead of the register button.
+         */        
+        
+        //stores the text fields inside variables
+        String first_name = firstNameField.getText();
+        String last_name = lastNameField.getText();
+        String username = usernameField.getText();
+        String password = passwordField.getText();
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
+            //checks if all the fields are filled out
+            if (first_name.isEmpty() || last_name.isEmpty() || username.isEmpty() || password.isEmpty()) {
+
+                JOptionPane.showMessageDialog(null, "A required field is missing. Please fill out all required fields and try again.");
+
+                //checks if the password contains at least 8 characters
+            } else if (password.length() < 8) {
+                passwordWarning.setText("Please enter at least 8 characters.");
+
+            } else {
+
+                try {
+
+                    //loads the database driver
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+
+                    //gets a connection to the database
+                    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "*Dun04061620");
+
+                    //retrieves and stores the query
+                    String isTaken = "SELECT * FROM user WHERE username=?";
+
+                    //gets a statement from the connection
+                    PreparedStatement pstIsTaken = conn.prepareStatement(isTaken);
+
+                    //passses the parameters
+                    pstIsTaken.setString(1, usernameField.getText());
+
+                    //executes the query
+                    ResultSet rs = pstIsTaken.executeQuery();
+
+                    //checks is the username is already taken
+                    if (rs.next()) {
+
+                        JOptionPane.showMessageDialog(null, "Username already taken!");
+
+                    } else {
+
+                        //loads the database driver
+                        Class.forName("com.mysql.cj.jdbc.Driver");
+
+                        //retrieves and stores the query
+                        String insert = "INSERT INTO user (first_name, last_name, username, password) VALUES (?, ?, ?, ?)";
+
+                        //gets a statement from the connection
+                        PreparedStatement pstInsert = conn.prepareStatement(insert);
+
+                        //passes all the parameters
+                        pstInsert.setString(1, first_name);
+                        pstInsert.setString(2, last_name);
+                        pstInsert.setString(3, username);
+                        pstInsert.setString(4, password);
+                        pstInsert.execute();
+                        JOptionPane.showMessageDialog(null, "The registration was successful!");
+
+                        //changes to login form
+                        LoginForm login = new LoginForm();
+                        login.setVisible(true);
+                        dispose();
+
+                    }
+
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, e);
+                }
+
+            }
+
+        }
+
+    }//GEN-LAST:event_passwordFieldKeyPressed
+
+    private void passwordFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passwordFieldMouseClicked
+        passwordField.setText("");
+        passwordWarning.setText("");
+    }//GEN-LAST:event_passwordFieldMouseClicked
 
     /**
      * @param args the command line arguments

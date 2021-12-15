@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -171,6 +172,11 @@ public class Calculator3x3 extends javax.swing.JFrame {
         z3.setPreferredSize(new java.awt.Dimension(35, 26));
 
         r3.setPreferredSize(new java.awt.Dimension(35, 26));
+        r3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                r3KeyPressed(evt);
+            }
+        });
 
         jLabel17.setText("z =");
 
@@ -348,7 +354,7 @@ public class Calculator3x3 extends javax.swing.JFrame {
 
     private void calculateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculateBtnActionPerformed
 
-                if (x1.getText().matches("[a-zA-Z]+") || y1.getText().matches("[a-zA-Z]+") || z1.getText().matches("[a-zA-Z]+")
+        if (x1.getText().matches("[a-zA-Z]+") || y1.getText().matches("[a-zA-Z]+") || z1.getText().matches("[a-zA-Z]+")
                 || r1.getText().matches("[a-zA-Z]+") || x2.getText().matches("[a-zA-Z]+") || y2.getText().matches("[a-zA-Z]+")
                 || z2.getText().matches("[a-zA-Z]+") || r2.getText().matches("[a-zA-Z]+") || x3.getText().matches("[a-zA-Z]+")
                 || y3.getText().matches("[a-zA-Z]+") || z3.getText().matches("[a-zA-Z]+") || r3.getText().matches("[a-zA-Z]+")) {
@@ -508,6 +514,92 @@ public class Calculator3x3 extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_saveBtnActionPerformed
+
+    private void r3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_r3KeyPressed
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
+            if (x1.getText().matches("[a-zA-Z]+") || y1.getText().matches("[a-zA-Z]+") || z1.getText().matches("[a-zA-Z]+")
+                    || r1.getText().matches("[a-zA-Z]+") || x2.getText().matches("[a-zA-Z]+") || y2.getText().matches("[a-zA-Z]+")
+                    || z2.getText().matches("[a-zA-Z]+") || r2.getText().matches("[a-zA-Z]+") || x3.getText().matches("[a-zA-Z]+")
+                    || y3.getText().matches("[a-zA-Z]+") || z3.getText().matches("[a-zA-Z]+") || r3.getText().matches("[a-zA-Z]+")) {
+
+                JOptionPane.showMessageDialog(null, "Enter a number; characters and symbols are not allowed.");
+
+            } else {
+
+                try {
+
+                    float[][] originalEquation = new float[3][3];
+                    float[] resultColum = new float[3];
+                    float[][] detAMinors = new float[3][3];
+                    float detA;
+                    float[][] adjoint = new float[3][3];
+                    float[][] inverse = new float[3][3];
+                    float[] results = new float[3];
+
+                    originalEquation[0][0] = Float.parseFloat(x1.getText());
+                    originalEquation[0][1] = Float.parseFloat(y1.getText());
+                    originalEquation[0][2] = Float.parseFloat(z1.getText());
+                    resultColum[0] = Float.parseFloat(r1.getText());
+                    originalEquation[1][0] = Float.parseFloat(x2.getText());
+                    originalEquation[1][1] = Float.parseFloat(y2.getText());
+                    originalEquation[1][2] = Float.parseFloat(z2.getText());
+                    resultColum[1] = Float.parseFloat(r2.getText());
+                    originalEquation[2][0] = Float.parseFloat(x3.getText());
+                    originalEquation[2][1] = Float.parseFloat(y3.getText());
+                    originalEquation[2][2] = Float.parseFloat(z3.getText());
+                    resultColum[2] = Float.parseFloat(r3.getText());
+
+                    detAMinors[0][0] = (originalEquation[1][1] * originalEquation[2][2]) - (originalEquation[1][2] * originalEquation[2][1]);
+                    detAMinors[0][1] = ((originalEquation[1][0] * originalEquation[2][2]) - (originalEquation[1][2] * originalEquation[2][0])) * -1;
+                    detAMinors[0][2] = (originalEquation[1][0] * originalEquation[2][1]) - (originalEquation[1][1] * originalEquation[2][0]);
+                    detAMinors[1][0] = ((originalEquation[0][1] * originalEquation[2][2]) - (originalEquation[0][2] * originalEquation[2][1])) * -1;
+                    detAMinors[1][1] = (originalEquation[0][0] * originalEquation[2][2]) - (originalEquation[0][2] * originalEquation[2][0]);
+                    detAMinors[1][2] = ((originalEquation[0][0] * originalEquation[2][1]) - (originalEquation[0][1] * originalEquation[2][0])) * -1;
+                    detAMinors[2][0] = (originalEquation[0][1] * originalEquation[1][2]) - (originalEquation[0][2] * originalEquation[1][1]);
+                    detAMinors[2][1] = ((originalEquation[0][0] * originalEquation[1][2]) - (originalEquation[0][2] * originalEquation[1][0])) * -1;
+                    detAMinors[2][2] = (originalEquation[0][0] * originalEquation[1][1]) - (originalEquation[0][1] * originalEquation[1][0]);
+
+                    detA = (originalEquation[0][0] * detAMinors[0][0]) + (originalEquation[0][1] * detAMinors[0][1]) + (originalEquation[0][2] * detAMinors[0][2]);
+
+                    if (detA == 0) {
+                        JOptionPane.showMessageDialog(null, "Determinante is 0. It is not possible calculate the variables values.");
+
+                    } else {
+
+                        for (int row = 0; row < adjoint.length; row++) {
+                            for (int col = 0; col < adjoint[row].length; col++) {
+                                adjoint[row][col] = detAMinors[col][row];
+                            }
+                        }
+
+                        for (int row = 0; row < adjoint.length; row++) {
+                            for (int col = 0; col < adjoint[row].length; col++) {
+                                inverse[row][col] = (1 / detA) * adjoint[row][col];
+                            }
+                        }
+
+                        results[0] = (inverse[0][0] * resultColum[0]) + (inverse[0][1] * resultColum[1]) + (inverse[0][2] * resultColum[2]);
+                        results[1] = (inverse[1][0] * resultColum[0]) + (inverse[1][1] * resultColum[1]) + (inverse[1][2] * resultColum[2]);
+                        results[2] = (inverse[2][0] * resultColum[0]) + (inverse[2][1] * resultColum[1]) + (inverse[2][2] * resultColum[2]);
+
+                        DecimalFormat df = new DecimalFormat("####0.00");
+                        resultX.setText("(" + df.format(results[0]) + " ;");
+                        resultY.setText(df.format(results[1]) + " ;");
+                        resultZ.setText(df.format(results[2]) + ")");
+
+                    }
+
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Error.");
+                }
+
+            }
+
+        }
+
+    }//GEN-LAST:event_r3KeyPressed
 
     /**
      * @param args the command line arguments

@@ -61,14 +61,12 @@ public class LoginForm extends javax.swing.JFrame {
 
         usernameWarning.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         usernameWarning.setForeground(new java.awt.Color(255, 0, 0));
-        usernameWarning.setText("");
 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel5.setText("Password:");
 
         passwordWarning.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         passwordWarning.setForeground(new java.awt.Color(255, 0, 0));
-        passwordWarning.setText("");
 
         loginBtn.setText("Login");
         loginBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -159,6 +157,9 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
 
+        /**
+         * Allows the user to login after entering the right details.
+         */
         //stores the text fields inside variables
         String username = usernameField.getText();
         String password = passwordField.getText();
@@ -202,6 +203,7 @@ public class LoginForm extends javax.swing.JFrame {
 
                     if (null == rs.getString("is_admin")) {
 
+                        //stores the usernameField content inside the variable str and carries the username to the following Jframe
                         String str = usernameField.getText();
                         RegularUserMenu obj = new RegularUserMenu();
                         obj.my_update(str);
@@ -210,8 +212,11 @@ public class LoginForm extends javax.swing.JFrame {
 
                     } else if (null != rs.getString("is_admin")) {
 
-                        AdminMenu menu = new AdminMenu();
-                        menu.setVisible(true);
+                        //stores the usernameField content inside the variable str and carries the username to the following Jframe
+                        String str = usernameField.getText();
+                        AdminMenu obj = new AdminMenu();
+                        obj.my_update(str);
+                        obj.setVisible(true);
                         dispose();
 
                     }
@@ -234,14 +239,19 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_loginBtnActionPerformed
 
     private void registerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerBtnActionPerformed
+
+        //brings the user to the registration page
         RegularUserRegistration registration = new RegularUserRegistration();
         registration.setVisible(true);
         dispose();
+
     }//GEN-LAST:event_registerBtnActionPerformed
 
     private void passwordFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordFieldKeyPressed
 
-        //WHEN THE USER PRESSES ENTER
+        /**
+         * Allows the user to use the enter key instead of the login button.
+         */
         //stores the text fields inside variables
         String username = usernameField.getText();
         String password = passwordField.getText();
@@ -295,8 +305,10 @@ public class LoginForm extends javax.swing.JFrame {
 
                         } else if (null != rs.getString("is_admin")) {
 
-                            AdminMenu menu = new AdminMenu();
-                            menu.setVisible(true);
+                            String str = usernameField.getText();
+                            AdminMenu obj = new AdminMenu();
+                            obj.my_update(str);
+                            obj.setVisible(true);
                             dispose();
 
                         }

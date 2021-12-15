@@ -12,6 +12,14 @@ package GUI;
 public class AdminMenu extends javax.swing.JFrame {
 
     /**
+     * Method that receives the username from the previous page.
+     */
+    
+    public void my_update(String str) {
+        greeting.setText(str);
+    }
+
+    /**
      * Creates new form AdminMenu
      */
     public AdminMenu() {
@@ -38,6 +46,7 @@ public class AdminMenu extends javax.swing.JFrame {
         listBtn = new javax.swing.JButton();
         reviewOps = new javax.swing.JButton();
         logoutBtn = new javax.swing.JButton();
+        greeting = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -77,6 +86,10 @@ public class AdminMenu extends javax.swing.JFrame {
             }
         });
 
+        greeting.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        greeting.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        greeting.setText("greeting");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -89,7 +102,10 @@ public class AdminMenu extends javax.swing.JFrame {
                     .addComponent(editInfoBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(listBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(reviewOps, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(logoutBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(logoutBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(greeting, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -99,7 +115,9 @@ public class AdminMenu extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(greeting)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(editInfoBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(listBtn)
@@ -107,7 +125,7 @@ public class AdminMenu extends javax.swing.JFrame {
                 .addComponent(reviewOps)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(logoutBtn)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -125,27 +143,45 @@ public class AdminMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
+
+        //brings the user back to the login page
         LoginForm login = new LoginForm();
         login.setVisible(true);
         dispose();
+
     }//GEN-LAST:event_logoutBtnActionPerformed
 
     private void editInfoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editInfoBtnActionPerformed
-        EditInfoAdmin menu = new EditInfoAdmin();
-        menu.setVisible(true);
+
+        //stores the username content inside the variable str and carries the username to the following Jframe
+        String str = greeting.getText();
+        EditInfoAdmin obj = new EditInfoAdmin();
+        obj.my_update(str);
+        obj.setVisible(true);
         dispose();
+
     }//GEN-LAST:event_editInfoBtnActionPerformed
 
     private void listBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listBtnActionPerformed
-        ListOfUsers list = new ListOfUsers();
-        list.setVisible(true);
+
+        //stores the username content inside the variable str and carries the username to the following Jframe
+        String str = greeting.getText();
+        ListOfUsers obj = new ListOfUsers();
+        obj.my_update(str);
+        obj.setVisible(true);
         dispose();
+
     }//GEN-LAST:event_listBtnActionPerformed
 
     private void reviewOpsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reviewOpsActionPerformed
-        ReviewOperations ops = new ReviewOperations();
-        ops.setVisible(true);
+
+        //stores the username content inside the variable str and carries the username to the following Jframe
+        String str = greeting.getText();
+        ReviewOperations obj = new ReviewOperations();
+        obj.my_update(str);
+        obj.setVisible(true);
         dispose();
+
     }//GEN-LAST:event_reviewOpsActionPerformed
 
     /**
@@ -185,6 +221,7 @@ public class AdminMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton editInfoBtn;
+    private javax.swing.JLabel greeting;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

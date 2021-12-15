@@ -11,6 +11,10 @@ package GUI;
  */
 public class RegularUserMenu extends javax.swing.JFrame {
 
+    /**
+     * Method that receives the username from the previous page.
+     */
+    
     public void my_update(String str) {
         greeting.setText(str);
     }
@@ -83,7 +87,7 @@ public class RegularUserMenu extends javax.swing.JFrame {
 
         greeting.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         greeting.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        greeting.setText("");
+        greeting.setText("greeting");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -125,31 +129,45 @@ public class RegularUserMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
+        
+        //brings the user back to the login page
         LoginForm login = new LoginForm();
         login.setVisible(true);
         dispose();
+        
     }//GEN-LAST:event_logoutBtnActionPerformed
 
     private void editInfoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editInfoBtnActionPerformed
-        EditInfoRegularUser menu = new EditInfoRegularUser();
-        menu.setVisible(true);
+        
+        //stores the username content inside the variable str and carries the username to the following Jframe
+        String str = greeting.getText();
+        EditInfoRegularUser obj = new EditInfoRegularUser();
+        obj.my_update(str);
+        obj.setVisible(true);
         dispose();
+        
     }//GEN-LAST:event_editInfoBtnActionPerformed
 
     private void calculator2x2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculator2x2ActionPerformed
+        
+        //stores the username content inside the variable str and carries the username to the following Jframe
         String str = greeting.getText();
         Calculator2x2 obj = new Calculator2x2();
         obj.my_update(str);
         obj.setVisible(true);
         dispose();
+        
     }//GEN-LAST:event_calculator2x2ActionPerformed
 
     private void calculator3x3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculator3x3ActionPerformed
+        
+        //stores the username content inside the variable str and carries the username to the following Jframe
         String str = greeting.getText();
         Calculator3x3 obj = new Calculator3x3();
         obj.my_update(str);
         obj.setVisible(true);
         dispose();
+        
     }//GEN-LAST:event_calculator3x3ActionPerformed
 
     /**
