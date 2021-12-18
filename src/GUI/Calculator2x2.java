@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import SQL.SQLConnection;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.Date;
@@ -363,7 +364,7 @@ public class Calculator2x2 extends javax.swing.JFrame {
         /**
          * Saves the operation into the database.
          */
-        try {
+         try {
 
             if (resultX.getText().isEmpty() || resultY.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Nothing to save.");
@@ -383,27 +384,35 @@ public class Calculator2x2 extends javax.swing.JFrame {
                 String insertOperation = "INSERT INTO operations (user_id, first_equation, second_equation, result) VALUES (?, ?, ?, ?)";
 
                 //gets a connection to the database
-                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "*Dun04061620");
+                //Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "Putyourh@1rup");
+                SQLConnection conn = new SQLConnection();
 
                 //gets a statement from the connection
-                PreparedStatement pstUser = conn.prepareStatement(selectUser);
+                //PreparedStatement pstUser = conn.prepareStatement(selectUser);
+                conn.prepareStatement(selectUser);
 
-                pstUser.setString(1, greeting.getText());
+                conn.getPst().setString(1, greeting.getText());
 
                 //executes the query
-                ResultSet rs = pstUser.executeQuery();
+                ResultSet rs = conn.getPst().executeQuery();
 
                 if (rs.next()) {
                     user_id = rs.getInt("user_id");
                 }
 
-                PreparedStatement pstOperation = conn.prepareStatement(insertOperation);
+               // PreparedStatement pstOperation = conn.prepareStatement(insertOperation);
+                  conn.prepareStatement(insertOperation);
 
-                pstOperation.setInt(1, user_id);
-                pstOperation.setString(2, first_equation);
-                pstOperation.setString(3, second_equation);
-                pstOperation.setString(4, result);
-                pstOperation.execute();
+//                pstOperation.setInt(1, user_id);
+//                pstOperation.setString(2, first_equation);
+//                pstOperation.setString(3, second_equation);
+//                pstOperation.setString(4, result);
+//                pstOperation.execute();
+                  conn.getPst().setInt(1, user_id);
+                  conn.getPst().setString(2, first_equation);
+                  conn.getPst().setString(3, second_equation);
+                  conn.getPst().setString(4, result);
+                  conn.getPst().execute();
 
                 JOptionPane.showMessageDialog(null, "Operation saved!");
 
