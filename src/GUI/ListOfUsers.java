@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import SQL.SQLConnection;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -167,13 +168,16 @@ public class ListOfUsers extends javax.swing.JFrame {
             String query = "SELECT * FROM user";
 
             //gets a connection to the database
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "*Dun04061620");
+            //Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "Putyourh@1rup");
+            SQLConnection conn = new SQLConnection();
 
             //gets a statement from the connection
-            PreparedStatement pst = conn.prepareStatement(query);
+            //PreparedStatement pst = conn.prepareStatement(query);
+            conn.prepareStatement(query);
 
             //executes the query
-            ResultSet rs = pst.executeQuery();
+//            ResultSet rs = pst.executeQuery();
+            ResultSet rs = conn.getPst().executeQuery();
 
             //adds the usernames to the list
             while (rs.next()) {
@@ -209,16 +213,20 @@ public class ListOfUsers extends javax.swing.JFrame {
             String isAdmin = "SELECT * FROM user WHERE username=?";
 
             //gets a connection to the database
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "*Dun04061620");
+            //Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "*Dun04061620");
+            SQLConnection conn = new SQLConnection();
 
             //gets a statement from the connection
-            PreparedStatement pstIsAdmin = conn.prepareStatement(isAdmin);
+            //PreparedStatement pstIsAdmin = conn.prepareStatement(isAdmin);
+            conn.prepareStatement(isAdmin);
 
             //passes the parameters
-            pstIsAdmin.setString(1, username);
+            //pstIsAdmin.setString(1, username);
+            conn.getPst().setString(1, username);
 
             //executes the query
-            ResultSet rs = pstIsAdmin.executeQuery();
+            //ResultSet rs = pstIsAdmin.executeQuery();
+            ResultSet rs = conn.getPst().executeQuery();
 
             //checks if the user is an admin; if yes, it can be delete; if not, it can
             if (rs.next()) {
@@ -236,18 +244,24 @@ public class ListOfUsers extends javax.swing.JFrame {
                     String deleteUser = "DELETE FROM user WHERE username=?";
 
                     //gets a statement from the connection
-                    PreparedStatement pstDelete1 = conn.prepareStatement(deleteFK);
+                    //PreparedStatement pstDelete1 = conn.prepareStatement(deleteFK);
+                    conn.prepareStatement(deleteFK);
                     
                     //deletes foreign key from table operations
-                    pstDelete1.setInt(1, user_id);
-                    pstDelete1.execute();
+//                    pstDelete1.setInt(1, user_id);
+//                    pstDelete1.execute();
+                    conn.getPst().setInt(1, user_id);
+                    conn.getPst().execute();
 
                     //gets a statement from the connection
-                    PreparedStatement pstDelete2 = conn.prepareStatement(deleteUser);
+                    //PreparedStatement pstDelete2 = conn.prepareStatement(deleteUser);
+                    conn.prepareStatement(deleteUser);
                     
                     //deletes user from table user
-                    pstDelete2.setString(1, username);
-                    pstDelete2.execute();
+//                    pstDelete2.setString(1, username);
+//                    pstDelete2.execute();
+                    conn.getPst().setString(1, username);
+                    conn.getPst().execute();
                     JOptionPane.showMessageDialog(null, "User deleted with success!");
 
                     //clears the table and username field

@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import SQL.SQLConnection;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -211,19 +212,23 @@ public class RegularUserRegistration extends javax.swing.JFrame {
                 Class.forName("com.mysql.cj.jdbc.Driver");
 
                 //gets a connection to the database
-                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "*Dun04061620");
+                //Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "*Dun04061620");
+                SQLConnection conn = new SQLConnection();
 
                 //retrieves and stores the query
                 String isTaken = "SELECT * FROM user WHERE username=?";
 
                 //gets a statement from the connection
-                PreparedStatement pstIsTaken = conn.prepareStatement(isTaken);
+                //PreparedStatement pstIsTaken = conn.prepareStatement(isTaken);
+                conn.prepareStatement(isTaken);
 
                 //passses the parameters
-                pstIsTaken.setString(1, usernameField.getText());
+                // pstIsTaken.setString(1, usernameField.getText());
+                conn.getPst().setString(1, usernameField.getText());
 
                 //executes the query
-                ResultSet rs = pstIsTaken.executeQuery();
+                //ResultSet rs = pstIsTaken.executeQuery();
+                ResultSet rs = conn.getPst().executeQuery();
 
                 //checks is the username is already taken
                 if (rs.next()) {
@@ -239,14 +244,20 @@ public class RegularUserRegistration extends javax.swing.JFrame {
                     String insert = "INSERT INTO user (first_name, last_name, username, password) VALUES (?, ?, ?, ?)";
 
                     //gets a statement from the connection
-                    PreparedStatement pstInsert = conn.prepareStatement(insert);
+                    //PreparedStatement pstInsert = conn.prepareStatement(insert);
+                    conn.prepareStatement(insert);
 
                     //passes all the parameters
-                    pstInsert.setString(1, first_name);
-                    pstInsert.setString(2, last_name);
-                    pstInsert.setString(3, username);
-                    pstInsert.setString(4, password);
-                    pstInsert.execute();
+//                    pstInsert.setString(1, first_name);
+//                    pstInsert.setString(2, last_name);
+//                    pstInsert.setString(3, username);
+//                    pstInsert.setString(4, password);
+//                    pstInsert.execute();
+                    conn.getPst().setString(1, first_name);
+                    conn.getPst().setString(2, last_name);
+                    conn.getPst().setString(3, username);
+                    conn.getPst().setString(4, password);
+                    conn.getPst().execute();
                     JOptionPane.showMessageDialog(null, "The registration was successful!");
 
                     //changes to login form

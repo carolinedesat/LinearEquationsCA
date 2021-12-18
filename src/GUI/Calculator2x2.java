@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import SQL.SQLConnection;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -87,12 +88,27 @@ public class Calculator2x2 extends javax.swing.JFrame {
         greeting.setText("greeting");
 
         y1.setPreferredSize(new java.awt.Dimension(35, 26));
+        y1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                y1ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("x +");
 
         x1.setPreferredSize(new java.awt.Dimension(35, 26));
+        x1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                x1ActionPerformed(evt);
+            }
+        });
 
         r1.setPreferredSize(new java.awt.Dimension(35, 26));
+        r1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                r1ActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("y =");
 
@@ -101,6 +117,11 @@ public class Calculator2x2 extends javax.swing.JFrame {
         jLabel6.setText("x +");
 
         x2.setPreferredSize(new java.awt.Dimension(35, 26));
+        x2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                x2ActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("y =");
 
@@ -267,16 +288,16 @@ public class Calculator2x2 extends javax.swing.JFrame {
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void calculateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculateBtnActionPerformed
-
+        //check if there are only numbers typed
         if (x1.getText().matches("[a-zA-Z]+") || y1.getText().matches("[a-zA-Z]+") || r1.getText().matches("[a-zA-Z]+")
                 || x2.getText().matches("[a-zA-Z]+") || y2.getText().matches("[a-zA-Z]+") || r2.getText().matches("[a-zA-Z]+")) {
 
             JOptionPane.showMessageDialog(null, "Enter a number; characters and symbols are not allowed.");
 
         } else {
-
+        //calculate the value of the variables
             try {
-
+                
                 float[][] originalEquation = new float[2][2];
                 float[] resultColum = new float[2];
                 float[][] detAEquation = new float[2][2];
@@ -361,27 +382,35 @@ public class Calculator2x2 extends javax.swing.JFrame {
                 String insertOperation = "INSERT INTO operations (user_id, first_equation, second_equation, result) VALUES (?, ?, ?, ?)";
 
                 //gets a connection to the database
-                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "*Dun04061620");
+                //Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "Putyourh@1rup");
+                SQLConnection conn = new SQLConnection();
 
                 //gets a statement from the connection
-                PreparedStatement pstUser = conn.prepareStatement(selectUser);
+                //PreparedStatement pstUser = conn.prepareStatement(selectUser);
+                conn.prepareStatement(selectUser);
 
-                pstUser.setString(1, greeting.getText());
+                conn.getPst().setString(1, greeting.getText());
 
                 //executes the query
-                ResultSet rs = pstUser.executeQuery();
+                ResultSet rs = conn.getPst().executeQuery();
 
                 if (rs.next()) {
                     user_id = rs.getInt("user_id");
                 }
 
-                PreparedStatement pstOperation = conn.prepareStatement(insertOperation);
+               // PreparedStatement pstOperation = conn.prepareStatement(insertOperation);
+                  conn.prepareStatement(insertOperation);
 
-                pstOperation.setInt(1, user_id);
-                pstOperation.setString(2, first_equation);
-                pstOperation.setString(3, second_equation);
-                pstOperation.setString(4, result);
-                pstOperation.execute();
+//                pstOperation.setInt(1, user_id);
+//                pstOperation.setString(2, first_equation);
+//                pstOperation.setString(3, second_equation);
+//                pstOperation.setString(4, result);
+//                pstOperation.execute();
+                  conn.getPst().setInt(1, user_id);
+                  conn.getPst().setString(2, first_equation);
+                  conn.getPst().setString(3, second_equation);
+                  conn.getPst().setString(4, result);
+                  conn.getPst().execute();
 
                 JOptionPane.showMessageDialog(null, "Operation saved!");
 
@@ -392,6 +421,22 @@ public class Calculator2x2 extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_saveBtnActionPerformed
+
+    private void x1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_x1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_x1ActionPerformed
+
+    private void y1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_y1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_y1ActionPerformed
+
+    private void r1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_r1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_r1ActionPerformed
+
+    private void x2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_x2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_x2ActionPerformed
 
     /**
      * @param args the command line arguments

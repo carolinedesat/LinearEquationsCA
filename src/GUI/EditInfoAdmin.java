@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import SQL.SQLConnection;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -243,19 +244,23 @@ public class EditInfoAdmin extends javax.swing.JFrame {
                 Class.forName("com.mysql.cj.jdbc.Driver");
 
                 //gets a connection to the database
-                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "*Dun04061620");
+                //Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "Putyourh@1rup");
+                SQLConnection conn = new SQLConnection();
 
                 //retrieves and stores the query
                 String isTaken = "SELECT * FROM user WHERE username=?";
 
                 //gets a statement from the connection
-                PreparedStatement pstIsTaken = conn.prepareStatement(isTaken);
+                //PreparedStatement pstIsTaken = conn.prepareStatement(isTaken);
+                conn.prepareStatement(isTaken);
 
                 //passses the parameters
-                pstIsTaken.setString(1, usernameField.getText());
+                //pstIsTaken.setString(1, usernameField.getText());
+                conn.getPst().setString(1, usernameField.getText());
 
                 //executes the query
-                ResultSet rs = pstIsTaken.executeQuery();
+                //ResultSet rs = pstIsTaken.executeQuery();
+                ResultSet rs = conn.getPst().executeQuery();
 
                 //checks is the username is already taken
                 if (rs.next()) {
@@ -271,15 +276,22 @@ public class EditInfoAdmin extends javax.swing.JFrame {
                     String update = "UPDATE user SET first_name=?, last_name=?, username=?, password=? WHERE password=? and is_admin = 'y'";
 
                     //gets a statement from the connection
-                    PreparedStatement pstUpdate = conn.prepareStatement(update);
+                    //PreparedStatement pstUpdate = conn.prepareStatement(update);
+                    conn.prepareStatement(update);
 
                     //passses the parameters
-                    pstUpdate.setString(1, first_name);
-                    pstUpdate.setString(2, last_name);
-                    pstUpdate.setString(3, username);
-                    pstUpdate.setString(4, newPassword);
-                    pstUpdate.setString(5, oldPassword);
-                    pstUpdate.execute();
+//                    pstUpdate.setString(1, first_name);
+//                    pstUpdate.setString(2, last_name);
+//                    pstUpdate.setString(3, username);
+//                    pstUpdate.setString(4, newPassword);
+//                    pstUpdate.setString(5, oldPassword);
+//                    pstUpdate.execute();
+                    conn.getPst().setString(1, first_name);
+                    conn.getPst().setString(2, last_name);
+                    conn.getPst().setString(3, username);
+                    conn.getPst().setString(4, newPassword);
+                    conn.getPst().setString(5, oldPassword);
+                    conn.getPst().execute();
                     
                     //sets the warnings to an empty string after the program is executed
                     newPasswordWarning.setText("");
