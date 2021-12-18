@@ -5,10 +5,50 @@
  */
 package SQL;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 /**
  *
  * @author carol
  */
 public class SQLConnection {
+    
+    String servername = "localhost:3306"; //Database server path
+    String dataName = "users"; // Database name
+    String url = "jdbc:mysql://" + servername + "/" + dataName;
+    String username = "root"; //DB User Name
+    String password = "Putyourh@1rup"; // DB Password
+    Connection connection; //Attribut to make the connection
+    PreparedStatement pst;
+    
+    public SQLConnection(){
+       
+        try{ 
+            this.connection = DriverManager.getConnection(url, username, password);
+        }catch(SQLException e){
+            System.out.println("SQL Error --> ");
+            System.out.println(e.getMessage());
+            System.out.println(e.getSQLState());//this will print out the exact message from the DB error
+        }
+    }
+    
+    public void prepareStatement(String query){
+        try{
+            this.pst = connection.prepareStatement(query);
+        }catch(SQLException e){
+            System.out.println("SQL Error --> ");
+            System.out.println(e.getMessage());
+            System.out.println(e.getSQLState());//this will print out the exact message from the DB error
+        }
+    }
+
+    public PreparedStatement getPst() {
+        return pst;
+    }
+    
+    
     
 }

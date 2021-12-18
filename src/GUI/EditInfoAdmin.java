@@ -296,77 +296,81 @@ public class EditInfoAdmin extends javax.swing.JFrame {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        //checks if all the fields are filled out
-        if (first_name.isEmpty() || last_name.isEmpty() || username.isEmpty() || password.isEmpty()) {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
 
-            JOptionPane.showMessageDialog(null, "A required field is missing. Please fill out all required fields and try again.");
+            //checks if all the fields are filled out
+            if (first_name.isEmpty() || last_name.isEmpty() || username.isEmpty() || password.isEmpty()) {
 
-            //checks if the password contains at least 8 characters
-        } else if (password.length() < 8) {
-            passwordWarning.setText("Please enter at least 8 characters.");
+                JOptionPane.showMessageDialog(null, "A required field is missing. Please fill out all required fields and try again.");
 
-        } else {
+                //checks if the password contains at least 8 characters
+            } else if (password.length() < 8) {
+                passwordWarning.setText("Please enter at least 8 characters.");
 
-            try {
+            } else {
 
-                //loads the database driver
-                Class.forName("com.mysql.cj.jdbc.Driver");
-
-                //gets a connection to the database
-                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "*Dun04061620");
-
-                //retrieves and stores the query
-                String isTaken = "SELECT * FROM user WHERE username=?";
-
-                //gets a statement from the connection
-                PreparedStatement pstIsTaken = conn.prepareStatement(isTaken);
-
-                //passses the parameters
-                pstIsTaken.setString(1, usernameField.getText());
-
-                //executes the query
-                ResultSet rs = pstIsTaken.executeQuery();
-
-                //checks is the username is already taken
-                if (rs.next()) {
-
-                    JOptionPane.showMessageDialog(null, "Username already taken!");
-
-                } else {
+                try {
 
                     //loads the database driver
                     Class.forName("com.mysql.cj.jdbc.Driver");
 
-                    //inserts data into the user table
-                    String update = "UPDATE user SET first_name=?, last_name=?, username=?, password=? WHERE password=? and is_admin = 'y'";
+                    //gets a connection to the database
+                    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "*Dun04061620");
+
+                    //retrieves and stores the query
+                    String isTaken = "SELECT * FROM user WHERE username=?";
 
                     //gets a statement from the connection
-                    PreparedStatement pstUpdate = conn.prepareStatement(update);
+                    PreparedStatement pstIsTaken = conn.prepareStatement(isTaken);
 
                     //passses the parameters
-                    pstUpdate.setString(1, first_name);
-                    pstUpdate.setString(2, last_name);
-                    pstUpdate.setString(3, username);
-                    pstUpdate.setString(4, password);
-                    pstUpdate.setString(5, greeting.getText());
-                    pstUpdate.execute();
+                    pstIsTaken.setString(1, usernameField.getText());
 
-                    //sets the warning to an empty string after the program is executed
-                    passwordWarning.setText("");
+                    //executes the query
+                    ResultSet rs = pstIsTaken.executeQuery();
 
-                    JOptionPane.showMessageDialog(null, "The update was successful!");
+                    //checks is the username is already taken
+                    if (rs.next()) {
 
-                    //changes to admin menu
-                    String str = usernameField.getText();
-                    AdminMenu obj = new AdminMenu();
-                    obj.my_update(str);
-                    obj.setVisible(true);
-                    dispose();
+                        JOptionPane.showMessageDialog(null, "Username already taken!");
 
+                    } else {
+
+                        //loads the database driver
+                        Class.forName("com.mysql.cj.jdbc.Driver");
+
+                        //inserts data into the user table
+                        String update = "UPDATE user SET first_name=?, last_name=?, username=?, password=? WHERE password=? and is_admin = 'y'";
+
+                        //gets a statement from the connection
+                        PreparedStatement pstUpdate = conn.prepareStatement(update);
+
+                        //passses the parameters
+                        pstUpdate.setString(1, first_name);
+                        pstUpdate.setString(2, last_name);
+                        pstUpdate.setString(3, username);
+                        pstUpdate.setString(4, password);
+                        pstUpdate.setString(5, greeting.getText());
+                        pstUpdate.execute();
+
+                        //sets the warning to an empty string after the program is executed
+                        passwordWarning.setText("");
+
+                        JOptionPane.showMessageDialog(null, "The update was successful!");
+
+                        //changes to admin menu
+                        String str = usernameField.getText();
+                        AdminMenu obj = new AdminMenu();
+                        obj.my_update(str);
+                        obj.setVisible(true);
+                        dispose();
+
+                    }
+
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, e);
                 }
 
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e);
             }
 
         }
