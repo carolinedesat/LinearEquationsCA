@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import SQL.SQLConnection;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -168,13 +169,13 @@ public class ReviewOperations extends javax.swing.JFrame {
                     + "user ON operations.user_id = user.user_id ORDER BY username";
 
             //gets a connection to the database
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "*Dun04061620");
-
+            SQLConnection conn = new SQLConnection();
+       
             //gets a statement from the connection
-            PreparedStatement pst = conn.prepareStatement(review);
+            conn.prepareStatement(review);
 
             //executes the query
-            ResultSet rs = pst.executeQuery();
+            ResultSet rs = conn.getPst().executeQuery();
 
             //while loop to create all the variables and output them inside the JTable
             while (rs.next()) {

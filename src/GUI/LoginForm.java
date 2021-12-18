@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import SQL.SQLConnection;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -186,17 +187,17 @@ public class LoginForm extends javax.swing.JFrame {
                 String query = "SELECT * FROM user WHERE username=? and password=?";
 
                 //gets a connection to the database
-                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "*Dun04061620");
+                SQLConnection conn = new SQLConnection();
 
                 //gets a statement from the connection
-                PreparedStatement pst = conn.prepareStatement(query);
+                conn.prepareStatement(query);
 
                 //passses all the parameters
-                pst.setString(1, usernameField.getText());
-                pst.setString(2, passwordField.getText());
+                conn.getPst().setString(1, usernameField.getText());
+                conn.getPst().setString(2, passwordField.getText());
 
                 //executes the query
-                ResultSet rs = pst.executeQuery();
+                ResultSet rs = conn.getPst().executeQuery();
 
                 //checks if the user is an admin; if not, change to regular user menu; if yes, change to admin menu
                 if (rs.next()) {
@@ -280,17 +281,17 @@ public class LoginForm extends javax.swing.JFrame {
                     String query = "SELECT * FROM user WHERE username=? and password=?";
 
                     //gets a connection to the database
-                    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "*Dun04061620");
+                    SQLConnection conn = new SQLConnection();
 
                     //gets a statement from the connection
-                    PreparedStatement pst = conn.prepareStatement(query);
+                    conn.prepareStatement(query);
 
                     //passses all the parameters
-                    pst.setString(1, usernameField.getText());
-                    pst.setString(2, passwordField.getText());
+                    conn.getPst().setString(1, usernameField.getText());
+                    conn.getPst().setString(2, passwordField.getText());
 
                     //executes the query
-                    ResultSet rs = pst.executeQuery();
+                    ResultSet rs = conn.getPst().executeQuery();
 
                     //checks if the user is an admin; if not, change to regular user menu; if yes, change to admin menu
                     if (rs.next()) {
